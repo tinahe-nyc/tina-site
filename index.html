@@ -20,6 +20,9 @@
   --slate-ink:#f7f7f5;
   --edge:#0a0a0a;
   --smudge:rgba(0,0,0,.07);
+  --card-bg:#fff;
+  --card-ink:#0a0a0a;
+  --shot-shadow:rgba(0,0,0,.26);
   --marker:"Permanent Marker","Segoe Script",cursive;
   --mono:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
 }
@@ -28,12 +31,16 @@
     --bg:#101011; --grid:rgba(255,255,255,.055); --ink:#f4f4f2; --muted:#9c9c98;
     --paper:#1b1b1d; --paper-ink:#f4f4f2; --slate:#efefe9; --slate-ink:#101011;
     --edge:#efefe9; --smudge:rgba(255,255,255,.07);
+    --card-bg:#1b1b1d; --card-ink:#f4f4f2;
+    --shot-shadow:rgba(0,0,0,.62);
   }
 }
 :root[data-theme="dark"]{
   --bg:#101011; --grid:rgba(255,255,255,.055); --ink:#f4f4f2; --muted:#9c9c98;
   --paper:#1b1b1d; --paper-ink:#f4f4f2; --slate:#efefe9; --slate-ink:#101011;
   --edge:#efefe9; --smudge:rgba(255,255,255,.07);
+  --card-bg:#1b1b1d; --card-ink:#f4f4f2;
+  --shot-shadow:rgba(0,0,0,.62);
 }
 
 *{box-sizing:border-box}
@@ -48,7 +55,7 @@ body{
 
 /* ---------- shell: sidebar + main ---------- */
 .shell{
-  max-width:1280px; margin:0 auto; padding:36px 30px 90px;
+  max-width:1360px; margin:0 auto; padding:36px 30px 90px;
   display:grid; grid-template-columns:268px minmax(0,1fr); gap:50px; align-items:start;
 }
 @media (max-width:900px){
@@ -111,43 +118,35 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
 .subtab[aria-selected="true"]{border-style:solid;background:var(--slate);color:var(--slate-ink);box-shadow:3px 3px 0 var(--edge)}
 
 /* ---------- board ---------- */
-.board{columns:2;column-gap:30px}
-@media (max-width:700px){.board{columns:1}}
+.board{
+  display:grid; align-items:start; gap:34px 30px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+@media (max-width:1199px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:699px){.board{grid-template-columns:1fr}}
 
+/* Every card is the same sheet of paper: white by day, black by night.
+   Thin rule, no second stroke — a note, not a sketch. */
 .card{
-  position:relative; break-inside:avoid; -webkit-column-break-inside:avoid;
-  margin:0 0 32px; padding:22px 24px 20px;
-  border:2.5px solid var(--edge); box-shadow:6px 6px 0 var(--edge);
+  position:relative; margin:0; padding:22px 24px 20px;
+  border:1.5px solid var(--card-ink); box-shadow:4px 4px 0 var(--edge);
   border-radius:255px 15px 225px 15px/15px 225px 15px 255px;
-  background:var(--paper); color:var(--paper-ink);
+  background:var(--card-bg); color:var(--card-ink);
   transition:transform .14s ease, box-shadow .14s ease;
 }
-.card.slate{background:var(--slate);color:var(--slate-ink)}
-.card:hover{transform:translate(2px,2px) rotate(0deg)!important;box-shadow:3px 3px 0 var(--edge)}
+.card:hover{transform:translate(2px,2px) rotate(0deg)!important;box-shadow:2px 2px 0 var(--edge)}
 .card::before{
-  content:""; position:absolute; top:-11px; right:26px; width:62px; height:20px;
-  background:var(--smudge); border:1px solid var(--smudge); transform:rotate(4deg);
+  content:""; position:absolute; top:-11px; left:50%; width:66px; height:20px;
+  background:var(--smudge); border:1px solid var(--smudge);
+  transform:translateX(-50%) rotate(-2.5deg);
 }
 .card h3{
   font-family:var(--marker); font-weight:400; font-size:23px; line-height:1.2;
   margin:2px 0 12px; letter-spacing:.4px;
 }
-.card p.desc{margin:12px 0 0;font-size:14px}
+.card p.desc{margin:2px 0 0;font-size:14px}
 .squig{display:block;width:64px;height:7px;opacity:.5;margin:-8px 0 10px}
 .squig path{stroke:currentColor;stroke-width:1.6;fill:none}
-
-/* status badge inside a hand-drawn ring */
-.ring{display:inline-block;padding:5px 11px;border:2.5px solid currentColor;border-radius:50%}
-.ring.dashed{border-style:dashed}
-.badge{
-  display:inline-flex;align-items:center;gap:7px;
-  font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
-  padding:4px 11px; border:2px solid currentColor; border-radius:999px;
-}
-.badge.filled{background:currentColor;border-color:currentColor}
-.badge.filled .txt{color:var(--paper)}
-.card.slate .badge.filled .txt{color:var(--slate)}
-.badge.struck .txt{text-decoration:line-through}
 
 .next{display:flex;gap:9px;align-items:flex-start;margin:20px 0 0;font-size:13.5px}
 .next svg{flex:none;width:15px;height:15px;margin-top:3px;stroke:currentColor;fill:none;stroke-width:1.8}
@@ -158,8 +157,7 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
   border:2px solid currentColor; border-radius:140px 10px 130px 10px/10px 130px 10px 140px;
 }
 .datechip.soon{background:currentColor}
-.datechip.soon .txt{color:var(--paper)}
-.card.slate .datechip.soon .txt{color:var(--slate)}
+.datechip.soon .txt{color:var(--card-bg)}
 
 /* ---------- link rows (project cards + writing) ---------- */
 .linkrow{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
@@ -171,25 +169,51 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
   text-decoration:none; display:inline-block;
 }
 .inklink:hover{background:currentColor}
-.inklink:hover .txt{color:var(--paper)}
-.card.slate .inklink:hover .txt{color:var(--slate)}
+.inklink:hover .txt{color:var(--card-bg)}
 
-/* ---------- galleries (art + microscopy) ---------- */
-.artgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:34px}
-.frame{
-  position:relative; padding:14px 14px 16px; background:var(--paper); color:var(--paper-ink);
-  border:2.5px solid var(--edge); box-shadow:6px 6px 0 var(--edge);
-  border-radius:14px 200px 14px 190px/190px 14px 200px 14px;
+/* ---------- galleries (art + microscopy) ----------
+   No frame and no border: a photograph taped straight onto the page. */
+.artgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:52px 38px}
+.frame{position:relative;margin:0;padding:0;background:none;border:0}
+
+/* the strip of tape holding it down */
+.frame::before{
+  content:""; position:absolute; z-index:2; top:-11px; left:50%;
+  width:76px; height:23px; background:var(--smudge);
+  border:1px solid var(--smudge);
+  transform:translateX(-50%) rotate(-2.5deg);
 }
-.frame img{display:block;width:100%;height:auto;border:2px solid var(--edge)}
+.frame img{
+  display:block; width:100%; height:auto; border:0;
+  box-shadow:0 7px 20px var(--shot-shadow), 0 1px 3px var(--shot-shadow);
+}
+
+/* the picture itself is the button */
+.shot{
+  display:block; position:relative; width:100%; margin:0; padding:0; border:0;
+  background:none; line-height:0; cursor:zoom-in;
+}
+/* a clip announces itself */
+.playmark{
+  position:absolute; z-index:3; left:50%; top:50%;
+  width:52px; height:52px; margin:-26px 0 0 -26px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; padding-left:4px;
+  color:#0a0a0a; background:rgba(246,246,244,.93);
+  border:2px solid #0a0a0a; border-radius:50%;
+  pointer-events:none; transition:transform .14s ease;
+}
+.shot:hover .playmark{transform:scale(1.07)}
+.shot:focus-visible{outline:3px solid var(--edge);outline-offset:4px}
 .frame .ph{
   display:flex;align-items:center;justify-content:center;text-align:center;
-  aspect-ratio:4/5;border:2.5px dashed var(--edge);font-size:12px;letter-spacing:.14em;
+  aspect-ratio:4/5;border:1.5px dashed var(--edge);font-size:12px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--muted);padding:16px;
 }
-.frame h3{font-family:var(--marker);font-weight:400;font-size:19px;margin:13px 0 3px;letter-spacing:.4px}
+.frame figcaption{padding:0 2px}
+.frame h3{font-family:var(--marker);font-weight:400;font-size:19px;margin:15px 0 3px;letter-spacing:.4px}
 .frame .meta{font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
-.frame .note{font-size:13px;margin:9px 0 0}
+.frame .note{font-size:13px;margin:9px 0 0;color:var(--muted)}
 
 /* ---------- writing ---------- */
 .writing{max-width:760px}
@@ -218,8 +242,9 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
 .bio p{margin:0 0 15px}
 .bio p:last-child{margin:0}
 .facts{
+  position:relative;
   padding:24px 26px; background:var(--slate); color:var(--slate-ink);
-  border:2.5px solid var(--edge); box-shadow:7px 7px 0 var(--edge);
+  border:2.5px solid var(--slate-ink); box-shadow:7px 7px 0 var(--edge);
   border-radius:15px 255px 15px 225px/225px 15px 255px 15px;
   transform:rotate(.7deg);
 }
@@ -228,6 +253,45 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
 .facts li{display:flex;gap:10px;padding:8px 0;font-size:13.5px;border-bottom:1px dashed currentColor}
 .facts li:last-child{border-bottom:0}
 .facts li b{flex:none;width:78px;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;padding-top:2px}
+
+/* ---------- lightbox ----------
+   Fixed dark ground in both themes: the picture supplies the colour. */
+.lightbox{
+  position:fixed; inset:0; z-index:60; padding:34px 20px;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(8,8,9,.92);
+}
+body.lb-open{overflow:hidden}
+.lb-figure{margin:0;max-width:min(1080px,92vw);display:flex;flex-direction:column;align-items:center}
+.lb-figure img,.lb-figure video{
+  display:block; max-width:100%; max-height:74vh; width:auto; height:auto;
+  border:2.5px solid #f4f4f2; background:#f4f4f2;
+}
+.lb-figure video{background:#0a0a0a}
+.lb-cap{margin:15px 0 0;text-align:center;color:#f4f4f2;max-width:68ch}
+.lb-cap b{font-family:var(--marker);font-weight:400;font-size:20px;letter-spacing:.4px;display:block}
+.lb-cap .m{display:block;margin-top:5px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.7}
+.lb-cap .n{display:block;margin-top:9px;font-size:13.5px;opacity:.87}
+.lb-btn{
+  position:absolute; cursor:pointer; line-height:1;
+  font-family:var(--mono); font-weight:700;
+  color:#0a0a0a; background:#f4f4f2; border:2.5px solid #0a0a0a;
+  box-shadow:4px 4px 0 #0a0a0a;
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.lb-btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 #0a0a0a}
+.lb-close{top:20px;right:22px;width:44px;height:44px;font-size:19px;
+  border-radius:220px 16px 200px 16px/16px 200px 16px 220px}
+.lb-nav{top:50%;margin-top:-25px;width:44px;height:50px;font-size:23px;
+  border-radius:180px 14px 170px 14px/14px 170px 14px 180px}
+.lb-prev{left:18px}
+.lb-next{right:18px}
+@media (max-width:620px){
+  .lb-nav{top:auto;bottom:18px;margin-top:0}
+  .lb-prev{left:calc(50% - 58px)}
+  .lb-next{right:calc(50% - 58px)}
+  .lb-figure img{max-height:58vh}
+}
 
 .empty{font-size:13px;color:var(--muted);letter-spacing:.06em;padding:20px 0}
 [hidden]{display:none!important}
@@ -240,7 +304,6 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
    EVERYTHING YOU EDIT LIVES IN THIS ONE OBJECT.
    Change the text below, save the file, push. Nothing else to touch.
 
-   PROJECT STATUS  ->  "active" | "sprouting" | "done"
    PROJECT SHELF   ->  "current" | "past"      (Current / Past tab)
    DATE            ->  "YYYY-MM-DD" or null. A real upcoming date; highlights when
                        it is within a week. Use this for things still ahead of you.
@@ -259,60 +322,53 @@ const CONTENT = {
   projects: [
     {
       title: "Artificial Reef Prep",
-      status: "active",
       shelf: "current",
-      desc: "Sinking a ship for fish housing.",
-      next: "Labor Day-ish sinking date TBD",
+      desc: "Sink a ship for fish housing.",
+      next: "Clean engine room and remove machinery",
       date: null,
       links: [
         { label: "Article", url: "https://www.thecityreporter.nyc/2026/04/20/artificial-reef-ferry-sea-creatures-sink-volunteers/" }
       ]
     },
     {
-      title: "Side Quest (Event Series)",
-      status: "active",
+      title: "Side Quest",
       shelf: "current",
-      desc: "Give people space to work on passion projects.",
-      next: "Janita singing, Tina cooking",
-      date: "2026-08-30",
+      desc: "Host biweekly coworking sessions for people to work on passion projects.",
+      next: "Cook ube brownies",
       links: [
         { label: "Luma", url: "https://luma.com/sidequest" }
       ]
     },
     {
       title: "Nature Religious Art",
-      status: "sprouting",
       shelf: "current",
-      desc: "Devotional imagery for pantheists.",
+      desc: "Create devotional pantheist art.",
       next: "Paintings, drawings, maybe stained glass",
       date: null,
       links: []
     },
     {
       title: "Foxfire Forecast",
-      status: "sprouting",
       shelf: "current",
-      desc: "Predicting when and where to find glowing mushrooms.",
-      next: "Bioluminescence predictor in progress",
+      desc: "Predict when and where to find glowing mushrooms.",
+      next: "Apply MaxEnt to predict the where part",
       date: null,
       links: [
         { label: "Write-up", url: "" }
       ]
     },
     {
-      title: "Mycorrhizal Fungi Research",
-      status: "done",
+      title: "Citizen Science",
       shelf: "past",
-      desc: "Cemetery soil samples for species ID.",
+      desc: "Dig cemetery soil samples to identify mycorrhizal fungal species.",
       next: "Maybe a data analysis sequel?",
       date: null,
       links: []
     },
     {
       title: "Bayesian Stats Bookclub",
-      status: "done",
       shelf: "past",
-      desc: "Working through Statistical Rethinking with a group.",
+      desc: "Work through Statistical Rethinking.",
       next: "",
       date: null,
       when: "Jul – Dec 2025",
@@ -323,58 +379,102 @@ const CONTENT = {
   ],
 
   /* ---------------- ART ----------------
-     img: put the file next to this one (e.g. "art/stained-glass.jpg"),
-     or paste a full URL. Leave it as "" for a placeholder frame.        */
+     img:     the version shown on the page (keep it small, ~900px wide).
+     imgFull: optional bigger export, shown only when the picture is clicked.
+              Omit it and the page version is reused.
+     Leave img as "" for a placeholder frame.                            */
   art: [
     {
-      title: "Pantheist Altarpiece",
-      year: "2026",
-      medium: "Oil on panel",
-      img: "",
-      note: "First of the devotional set. Moss where the gold leaf would go."
+      title: "Vegetarian Menu",
+      year: "",
+      medium: "Gold ink on cardstock",
+      img: "art/vegetarian-menu.jpg",
+      imgFull: "art/vegetarian-menu-full.jpg",
+      note: "A birthday card for a friend."
     },
     {
-      title: "Foxfire Study",
-      year: "2026",
-      medium: "Gouache",
-      img: "",
-      note: "Painted from the same woods the model keeps flagging."
+      title: "Insect Tote",
+      year: "",
+      medium: "Fabric paint on canvas",
+      img: "art/insect-tote.jpg",
+      imgFull: "art/insect-tote-full.jpg",
+      note: "Bugs"
     },
     {
-      title: "Reef Drawings",
-      year: "2026",
-      medium: "Ink on paper",
-      img: "",
-      note: "Ships as architecture for fish."
+      title: "Carrier Pigeon",
+      year: "",
+      medium: "Pencil and marker on paper",
+      img: "art/pigeon.jpg",
+      imgFull: "art/pigeon-full.jpg",
+      note: "Goodbye card to a friend."
     }
   ],
 
   /* ---------------- MICROSCOPY ----------------
-     Same shape as art, but the meta line is specimen / magnification / technique. */
+     Meta line is specimen / magnification / technique — leave any of them "".
+     img:     the still shown on the page. For a clip this is its poster frame.
+     imgFull: optional bigger still, shown when a photo is clicked.
+     video:   optional .mp4. Adds a play badge, and plays in the viewer.       */
   microscopy: [
     {
-      title: "Cemetery Soil, Plot 14",
-      specimen: "Mycorrhizal hyphae",
-      mag: "400x",
-      technique: "Trypan blue",
-      img: "",
-      note: "Root tips colonized end to end. This is the slide that started the fungi project."
+      title: "Snake Skin",
+      specimen: "Shed skin",
+      mag: "",
+      technique: "",
+      img: "microscopy/snake-skin.jpg",
+      imgFull: "",
+      video: "",
+      note: ""
     },
     {
-      title: "Panellus stipticus Gills",
-      specimen: "Fruiting body section",
-      mag: "100x",
-      technique: "Wet mount",
-      img: "",
-      note: "Looking for the luminous tissue layer."
+      title: "Nematode",
+      specimen: "",
+      mag: "",
+      technique: "",
+      img: "microscopy/parasite-salmon.jpg",
+      imgFull: "",
+      video: "microscopy/parasite-salmon.mp4",
+      note: ""
     },
     {
-      title: "Pond Sample, August",
-      specimen: "Mixed diatoms",
-      mag: "200x",
-      technique: "Darkfield",
-      img: "",
-      note: "Collected on the way back from the picnic."
+      title: "Dog Tick",
+      specimen: "",
+      mag: "",
+      technique: "",
+      img: "microscopy/dog-tick.jpg",
+      imgFull: "",
+      video: "microscopy/dog-tick.mp4",
+      note: ""
+    },
+    {
+      title: "Earwig and Aphids",
+      specimen: "",
+      mag: "",
+      technique: "",
+      img: "microscopy/earwig-aphids.jpg",
+      imgFull: "",
+      video: "microscopy/earwig-aphids.mp4",
+      note: ""
+    },
+    {
+      title: "Tardigrade",
+      specimen: "",
+      mag: "",
+      technique: "",
+      img: "microscopy/tardigrade.jpg",
+      imgFull: "",
+      video: "microscopy/tardigrade.mp4",
+      note: ""
+    },
+    {
+      title: "Unknown Specimen",
+      specimen: "",
+      mag: "",
+      technique: "",
+      img: "microscopy/unknown-specimen.jpg",
+      imgFull: "",
+      video: "microscopy/unknown-specimen.mp4",
+      note: ""
     }
   ],
 
@@ -383,21 +483,21 @@ const CONTENT = {
      body: array of paragraphs shown when the entry is opened. [] for none. */
   writing: [
     {
-      title: "What the Cemetery Soil Said",
-      date: "2026-07-14",
-      kind: "Essay",
-      blurb: "Sampling fungi among the headstones, and what species ID does to how you walk through a graveyard.",
+      title: "A Faustian Bargain",
+      date: "2026-08-26",
+      kind: "Draft",
+      blurb: 'I asked the doctor if there would be any side effects. He paused. "You may get what you want, not what you need."',
       link: "",
       body: [
-        "Replace this with the real piece. Each string in the body array becomes its own paragraph.",
-        "Leave body as an empty array if you only want the blurb and a link out."
+        "One day I will write more about this.",
+        "Today is not that day."
       ]
     },
     {
-      title: "Sinking Ships on Purpose",
-      date: "2026-06-02",
-      kind: "Note",
-      blurb: "Notes from reading about artificial reefs: the paperwork is harder than the physics.",
+      title: "I Overcame Social Anxiety By Going to 217 Events in a Year",
+      date: "2026-08-26",
+      kind: "Draft",
+      blurb: "Exposure therapy really works.",
       link: "",
       body: []
     }
@@ -406,14 +506,12 @@ const CONTENT = {
   /* ---------------- ABOUT ---------------- */
   about: {
     bio: [
-      "I build things outdoors and things on screens, and I try to keep the two arguing with each other. Lately that means sinking ships to grow reefs, sampling fungi in cemeteries, and training a model to guess where the glowing mushrooms will be.",
-      "The rest of the time I paint, cook for people, look at things under a microscope, and plan trips that are slightly longer than anyone agreed to.",
-      "Replace this paragraph with your own. Two or three short ones read best here."
+      ""
     ],
     facts: [
-      { label: "Based", value: "New York" },
-      { label: "Doing", value: "Ecology, machine learning, paint" },
-      { label: "Reading", value: "Statistical Rethinking, slowly" },
+      { label: "Based", value: "NYC" },
+      { label: "Interests", value: "Biodiversity, Epistemology, Nutrition" },
+      { label: "Reading", value: "Atlas of the Heart" },
       { label: "Email", value: "tinahe.nyc@gmail.com" }
     ]
   }
@@ -471,6 +569,17 @@ const CONTENT = {
       <div class="writing" id="writinglist"></div>
     </section>
   </main>
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+  <button class="lb-btn lb-close" id="lb-close" type="button" aria-label="Close">&#10005;</button>
+  <button class="lb-btn lb-nav lb-prev" id="lb-prev" type="button" aria-label="Previous image">&#8249;</button>
+  <button class="lb-btn lb-nav lb-next" id="lb-next" type="button" aria-label="Next image">&#8250;</button>
+  <figure class="lb-figure">
+    <img id="lb-img" alt="">
+    <video id="lb-video" controls playsinline preload="metadata" hidden></video>
+    <figcaption class="lb-cap" id="lb-cap"></figcaption>
+  </figure>
 </div>
 
 <script>
@@ -538,13 +647,6 @@ const CONTENT = {
   var fmtLong = function (d) { return MONTHS[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear(); };
   var daysOut = function (d) { return Math.round((d - today()) / 86400000); };
 
-  /* ---------- status ---------- */
-  var STATUS = {
-    active:    { icon: "🔥", label: "Active",    ring: "",       badge: "filled" },
-    sprouting: { icon: "🌱", label: "Sprouting", ring: "dashed", badge: "" },
-    done:      { icon: "📗", label: "Done",      ring: "",       badge: "struck" }
-  };
-
   /* ---------- header ---------- */
   document.title = CONTENT.owner && CONTENT.owner !== CONTENT.siteTitle
     ? CONTENT.siteTitle + " · " + CONTENT.owner
@@ -565,7 +667,6 @@ const CONTENT = {
   var tilt = function (i) { return [-1.4, 1.1, -0.6, 1.6, -1.1, 0.7, -1.8, 1.3][i % 8]; };
 
   var cardHTML = function (p, i) {
-    var st = STATUS[p.status] || STATUS.sprouting;
     var d = parseDay(p.date);
     var out = d ? daysOut(d) : null;
     var soon = out !== null && out >= 0 && out <= 7;
@@ -580,11 +681,9 @@ const CONTENT = {
       ? '<div class="next">' + CAL + "<div><b>Next:</b> " + esc(p.next) + "</div></div>"
       : "";
 
-    return '<article class="card ' + (i % 2 ? "slate" : "") + '" style="transform:rotate(' +
+    return '<article class="card" style="transform:rotate(' +
       tilt(i) + 'deg)">' +
       "<h3>" + esc(p.title) + "</h3>" + SQUIG +
-      '<span class="ring ' + st.ring + '"><span class="badge ' + st.badge + '">' +
-        st.icon + '<span class="txt">' + esc(st.label) + "</span></span></span>" +
       (p.desc ? '<p class="desc">' + esc(p.desc) + "</p>" : "") +
       linkRow(p.links) +
       nextLine + chip +
@@ -613,28 +712,138 @@ const CONTENT = {
   });
   drawBoard();
 
-  /* ---------- galleries ---------- */
-  var frameHTML = function (a, metaParts) {
-    var media = a.img
-      ? '<img src="' + esc(a.img) + '" alt="' + esc(a.title) + '" loading="lazy">'
-      : '<div class="ph">Image coming</div>';
-    var meta = metaParts.filter(Boolean).join(" · ");
-    return '<figure class="frame" style="margin:0">' + media +
-      "<figcaption><h3>" + esc(a.title) + "</h3>" +
-      (meta ? '<div class="meta">' + esc(meta) + "</div>" : "") +
-      (a.note ? '<p class="note">' + esc(a.note) + "</p>" : "") +
-      "</figcaption></figure>";
+  /* ---------- galleries ----------
+     A frame that actually has an image becomes a button and records its
+     place in that gallery's list. Placeholder frames stay inert. */
+  var shotTilt = function (i) { return [-1.1, .8, -.5, 1.3, -.9, .6][i % 6]; };
+
+  var buildGallery = function (items, metaOf) {
+    var shots = [];
+    var html = (items || []).map(function (a, i) {
+      var meta = metaOf(a).filter(Boolean).join(" · ");
+      var media;
+      if (a.img || a.video) {
+        media = '<button class="shot" type="button" data-i="' + shots.length +
+          '" aria-label="' + (a.video ? "Play " : "View ") + esc(a.title) +
+          (a.video ? "" : " larger") + '">' +
+          (a.img
+            ? '<img src="' + esc(a.img) + '" alt="' + esc(a.title) + '" loading="lazy">'
+            : '<div class="ph">Clip</div>') +
+          (a.video ? '<span class="playmark" aria-hidden="true">\u25b6</span>' : "") +
+          "</button>";
+        shots.push({
+          src: a.imgFull || a.img || "",
+          video: a.video || "",
+          title: a.title, meta: meta, note: a.note || ""
+        });
+      } else {
+        media = '<div class="ph">Image coming</div>';
+      }
+      return '<figure class="frame" style="transform:rotate(' + shotTilt(i) + 'deg)">' + media +
+        "<figcaption><h3>" + esc(a.title) + "</h3>" +
+        (meta ? '<div class="meta">' + esc(meta) + "</div>" : "") +
+        (a.note ? '<p class="note">' + esc(a.note) + "</p>" : "") +
+        "</figcaption></figure>";
+    }).join("");
+    return { html: html, shots: shots };
   };
 
-  document.getElementById("artgrid").innerHTML =
-    (CONTENT.art || []).map(function (a) {
-      return frameHTML(a, [a.year, a.medium]);
-    }).join("") || '<p class="empty">No art up yet.</p>';
+  var artG = buildGallery(CONTENT.art, function (a) { return [a.year, a.medium]; });
+  var scopeG = buildGallery(CONTENT.microscopy, function (a) {
+    return [a.specimen, a.mag, a.technique];
+  });
 
+  document.getElementById("artgrid").innerHTML =
+    artG.html || '<p class="empty">No art up yet.</p>';
   document.getElementById("scopegrid").innerHTML =
-    (CONTENT.microscopy || []).map(function (a) {
-      return frameHTML(a, [a.specimen, a.mag, a.technique]);
-    }).join("") || '<p class="empty">No slides up yet.</p>';
+    scopeG.html || '<p class="empty">No slides up yet.</p>';
+
+  /* ---------- lightbox ---------- */
+  var lb = document.getElementById("lightbox");
+  var lbImg = document.getElementById("lb-img");
+  var lbVid = document.getElementById("lb-video");
+  var lbCap = document.getElementById("lb-cap");
+  var lbPrev = document.getElementById("lb-prev");
+  var lbNext = document.getElementById("lb-next");
+  var viewList = [];
+  var viewAt = 0;
+  var opener = null;
+
+  var stopVideo = function () {
+    try { lbVid.pause(); } catch (e) {}
+    lbVid.hidden = true;
+    lbVid.removeAttribute("src");
+    lbVid.load();
+  };
+
+  var paintShot = function () {
+    var v = viewList[viewAt];
+    if (!v) return;
+    if (v.video) {
+      lbImg.hidden = true;
+      lbImg.removeAttribute("src");
+      lbVid.hidden = false;
+      if (v.src) lbVid.setAttribute("poster", v.src);
+      else lbVid.removeAttribute("poster");
+      lbVid.src = v.video;
+      lbVid.setAttribute("aria-label", v.title);
+    } else {
+      stopVideo();
+      lbImg.hidden = false;
+      lbImg.src = v.src;
+      lbImg.alt = v.title;
+    }
+    lbCap.innerHTML = "<b>" + esc(v.title) + "</b>" +
+      (v.meta ? '<span class="m">' + esc(v.meta) + "</span>" : "") +
+      (v.note ? '<span class="n">' + esc(v.note) + "</span>" : "");
+    var many = viewList.length > 1;
+    lbPrev.hidden = !many;
+    lbNext.hidden = !many;
+  };
+  var openShot = function (list, i, trigger) {
+    if (!list.length) return;
+    viewList = list;
+    viewAt = i;
+    opener = trigger || null;
+    paintShot();
+    lb.hidden = false;
+    document.body.classList.add("lb-open");
+    document.getElementById("lb-close").focus();
+  };
+  var closeShot = function () {
+    lb.hidden = true;
+    document.body.classList.remove("lb-open");
+    stopVideo();
+    lbImg.removeAttribute("src");
+    if (opener) { opener.focus(); opener = null; }
+  };
+  var stepShot = function (d) {
+    viewAt = (viewAt + d + viewList.length) % viewList.length;
+    paintShot();
+  };
+
+  var wireGrid = function (id, list) {
+    document.getElementById(id).addEventListener("click", function (ev) {
+      var b = ev.target.closest(".shot");
+      if (!b) return;
+      openShot(list, +b.dataset.i, b);
+    });
+  };
+  wireGrid("artgrid", artG.shots);
+  wireGrid("scopegrid", scopeG.shots);
+
+  lb.addEventListener("click", function (ev) {
+    if (ev.target === lb || ev.target.closest("#lb-close")) closeShot();
+    else if (ev.target.closest("#lb-prev")) stepShot(-1);
+    else if (ev.target.closest("#lb-next")) stepShot(1);
+  });
+  document.addEventListener("keydown", function (ev) {
+    if (lb.hidden) return;
+    if (ev.key === "Escape") { closeShot(); return; }
+    if (ev.target === lbVid) return;   // let the player have its own arrow keys
+    if (ev.key === "ArrowLeft" && viewList.length > 1) stepShot(-1);
+    else if (ev.key === "ArrowRight" && viewList.length > 1) stepShot(1);
+  });
 
   /* ---------- writing ---------- */
   document.getElementById("writinglist").innerHTML = (CONTENT.writing || []).map(function (w, i) {
