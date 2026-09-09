@@ -79,7 +79,7 @@ h1.sitetitle::after{
 }
 .tagline{
   font-weight:700; font-size:11px; letter-spacing:.17em; text-transform:uppercase;
-  color:var(--muted); margin:14px 0 0; white-space:nowrap;
+  color:var(--muted); margin:14px 0 0; white-space:pre-line; line-height:1.7;
 }
 .themebtn{
   flex:none; width:42px; height:42px; cursor:pointer; font-size:17px; line-height:1;
@@ -315,7 +315,8 @@ body.lb-open{overflow:hidden}
 const CONTENT = {
 
   siteTitle: "Tina He",
-  tagline: "What I've been up to",
+  // A "\n" here becomes a line break on the page. Add more to split further.
+  tagline: "Things I'm learning, making, \nand getting myself into",
   owner: "Tina He",
 
   /* ---------------- QUESTS (the board) ---------------- */
@@ -324,7 +325,7 @@ const CONTENT = {
       title: "Artificial Reef Prep",
       shelf: "current",
       desc: "Sink a ship for fish housing.",
-      next: "Clean engine room and remove machinery",
+      next: "Rig and hoist machinery out of the engine room.",
       date: null,
       links: [
         { label: "Article", url: "https://www.thecityreporter.nyc/2026/04/20/artificial-reef-ferry-sea-creatures-sink-volunteers/" }
@@ -333,7 +334,7 @@ const CONTENT = {
     {
       title: "Side Quest",
       shelf: "current",
-      desc: "Host biweekly coworking sessions for people to work on passion projects.",
+      desc: "Host biweekly coworking sessions for people to work on projects they care about, ranging from chainmail jewelry, games, apps, blogposts, and other creative pursuits",
       next: "Cook ube brownies",
       links: [
         { label: "Luma", url: "https://luma.com/sidequest" }
@@ -343,7 +344,7 @@ const CONTENT = {
       title: "Nature Religious Art",
       shelf: "current",
       desc: "Create devotional pantheist art.",
-      next: "Paintings, drawings, maybe stained glass",
+      next: "Make a mindmap identifying themes, motifs, and other elements of religious art. ",
       date: null,
       links: []
     },
@@ -358,17 +359,25 @@ const CONTENT = {
       ]
     },
     {
-      title: "Citizen Science",
-      shelf: "past",
-      desc: "Dig cemetery soil samples to identify mycorrhizal fungal species.",
-      next: "Maybe a data analysis sequel?",
+      title: "Safety Training Analysis",
+      shelf: "current",
+      desc: "Learn a causal inference method to investigate whether mandatory safety training reduced medical resident injuries. ",
+      next: null,
       date: null,
+      links: []
+    },
+    {
+      title: "Cemetery Fungi Dig",
+      shelf: "past",
+      desc: "Volunteer with MYCOmmunity Mapping Project to dig and collect eDNA samples at Green-Wood Cemetery to study mycorrhizal fungi and urban fungal biodiversity.",
+      next: "Maybe a data analysis sequel?",
+      when: "Jul 2026",
       links: []
     },
     {
       title: "Bayesian Stats Bookclub",
       shelf: "past",
-      desc: "Work through Statistical Rethinking.",
+      desc: "Work through Statistical Rethinking by Richard McElreath with friends.",
       next: "",
       date: null,
       when: "Jul – Dec 2025",
