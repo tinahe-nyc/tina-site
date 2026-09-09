@@ -148,19 +148,26 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
 .squig{display:block;width:64px;height:7px;opacity:.5;margin:-8px 0 10px}
 .squig path{stroke:currentColor;stroke-width:1.6;fill:none}
 
-.next{display:flex;gap:9px;align-items:flex-start;margin:20px 0 0;font-size:13.5px}
+/* Description and Next are one thought, so they sit close together. */
+.next{display:flex;gap:9px;align-items:flex-start;margin:10px 0 0;font-size:13.5px}
 .next svg{flex:none;width:15px;height:15px;margin-top:3px;stroke:currentColor;fill:none;stroke-width:1.8}
 .next b{font-weight:700}
-.datechip{
-  display:inline-block;margin:15px 0 0;padding:4px 12px;
-  font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
-  border:2px solid currentColor; border-radius:140px 10px 130px 10px/10px 130px 10px 140px;
+
+/* The date is quiet text under the title, not a frame. Only the real
+   link should look clickable on a card. Opacity rather than a fixed
+   colour so it stays muted on both the light and dark card. */
+.carddate{
+  display:block; margin:-6px 0 13px;
+  font-size:10.5px; font-weight:700; letter-spacing:.15em;
+  text-transform:uppercase; opacity:.55;
 }
-.datechip.soon{background:currentColor}
-.datechip.soon .txt{color:var(--card-bg)}
+.carddate.soon{opacity:1}
 
 /* ---------- link rows (project cards + writing) ---------- */
 .linkrow{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+/* A wider gap before the link than between description and Next,
+   so the link reads as the separate, actionable thing. */
+.card .linkrow{margin:22px 0 0}
 .inklink{
   font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.14em;
   text-transform:uppercase; cursor:pointer; padding:5px 13px;
@@ -309,7 +316,7 @@ body.lb-open{overflow:hidden}
                        it is within a week. Use this for things still ahead of you.
    WHEN            ->  Free text for a span already behind you, e.g. "Jul – Dec 2025".
                        Overrides `date` on the card and never highlights.
-   LINKS           ->  [] for none, or [{ label: "Repo", url: "https://..." }]
+   LINKS           ->  [] for none, or [{ label: "Read the article", url: "https://..." }]  (say what it is)
    ========================================================================== */
 
 const CONTENT = {
@@ -324,20 +331,21 @@ const CONTENT = {
     {
       title: "Artificial Reef Prep",
       shelf: "current",
-      desc: "Sink a ship for fish housing.",
+      when: "Mar 2026 - present",
+      desc: "Sink a decomissioned ship for fish housing.",
       next: "Rig and hoist machinery out of the engine room.",
       date: null,
       links: [
-        { label: "Article", url: "https://www.thecityreporter.nyc/2026/04/20/artificial-reef-ferry-sea-creatures-sink-volunteers/" }
+        { label: "Read the article", url: "https://www.thecityreporter.nyc/2026/04/20/artificial-reef-ferry-sea-creatures-sink-volunteers/" }
       ]
     },
     {
       title: "Side Quest",
       shelf: "current",
-      desc: "Host biweekly coworking sessions for people to work on projects they care about, including chainmail jewelry, games, apps, blogposts, and other creative pursuits",
-      next: "Cook ube brownies",
+      desc: "Host biweekly coworking sessions for people to work on projects they care about, from chainmail jewelry to apps and blogposts.",
+      next: "Bake ube brownies for the next session.",
       links: [
-        { label: "Luma", url: "https://luma.com/sidequest" }
+        { label: "Join a session", url: "https://luma.com/sidequest" }
       ]
     },
     {
@@ -355,13 +363,13 @@ const CONTENT = {
       next: "Apply MaxEnt to predict the where part",
       date: null,
       links: [
-        { label: "Write-up", url: "" }
+        { label: "Read the write-up", url: "" }
       ]
     },
     {
       title: "Safety Training Analysis",
       shelf: "current",
-      desc: "Learn a causal inference method to investigate whether mandatory safety training reduced medical resident injuries. ",
+      desc: "Investigate whether mandatory safety training reduced medical resident injuries. ",
       next: null,
       date: null,
       links: []
@@ -377,12 +385,12 @@ const CONTENT = {
     {
       title: "Bayesian Stats Bookclub",
       shelf: "past",
-      desc: "Work through Statistical Rethinking by Richard McElreath with friends.",
+      desc: "Read Statistical Rethinking by Richard McElreath with friends.",
       next: "",
       date: null,
       when: "Jul – Dec 2025",
       links: [
-        { label: "Repo", url: "https://github.com/erictleung/statistical-rethinking-book-club" }
+        { label: "Browse the repo", url: "https://github.com/erictleung/statistical-rethinking-book-club" }
       ]
     }
   ],
@@ -682,8 +690,8 @@ const CONTENT = {
 
     var chipText = p.when ? p.when : (d ? fmtShort(d) : "");
     var chip = chipText
-      ? '<span class="datechip' + (soon && !p.when ? " soon" : "") + '"><span class="txt">' +
-        esc(chipText) + "</span></span>"
+      ? '<span class="carddate' + (soon && !p.when ? " soon" : "") + '">' +
+        esc(chipText) + "</span>"
       : "";
 
     var nextLine = p.next
@@ -692,10 +700,12 @@ const CONTENT = {
 
     return '<article class="card" style="transform:rotate(' +
       tilt(i) + 'deg)">' +
-      "<h3>" + esc(p.title) + "</h3>" + SQUIG +
+      // Fixed order on every card: title, date, description, next, link.
+      // Anything missing is simply skipped; the order never changes.
+      "<h3>" + esc(p.title) + "</h3>" + SQUIG + chip +
       (p.desc ? '<p class="desc">' + esc(p.desc) + "</p>" : "") +
+      nextLine +
       linkRow(p.links) +
-      nextLine + chip +
       "</article>";
   };
 
