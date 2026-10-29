@@ -255,6 +255,13 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
   border-radius:15px 255px 15px 225px/225px 15px 255px 15px;
   transform:rotate(.7deg);
 }
+/* the photo shares the bio's sheet of paper, above the text */
+.aboutphoto{margin:0 0 20px}
+.aboutphoto[hidden]{display:none}
+.aboutphoto img{
+  display:block; width:100%; height:auto;
+  border:2px solid var(--edge); border-radius:6px;
+}
 .facts h3{font-family:var(--marker);font-weight:400;font-size:21px;margin:0 0 14px;letter-spacing:.4px}
 .facts ul{list-style:none;margin:0;padding:0}
 .facts li{display:flex;gap:10px;padding:8px 0;font-size:13.5px;border-bottom:1px dashed currentColor}
@@ -494,6 +501,16 @@ const CONTENT = {
       imgFull: "",
       video: "microscopy/unknown-specimen.mp4",
       note: ""
+    },
+    {
+      title: "Fungus Gnat",
+      specimen: "Larva",
+      mag: "",
+      technique: "",
+      img: "microscopy/fungal-gnat.jpg",
+      imgFull: "",
+      video: "microscopy/fungal-gnat.mp4",
+      note: ""
     }
   ],
 
@@ -524,6 +541,8 @@ const CONTENT = {
 
   /* ---------------- ABOUT ---------------- */
   about: {
+    photo: "about/tina.jpg",
+    photoAlt: "Tina in a grey coverall, smiling and waving up from a round manhole hatch",
     bio: [
       "Hi, I'm Tina. This site is a collection of things I'm thinking about and tinkering with. By day, I work with healthcare data and automation. The rest of the time, I make art with friends, volunteer on ecological projects, organize coworking events, and trick people into eating more veggies."
     ],
@@ -560,7 +579,10 @@ const CONTENT = {
   <main>
     <section id="panel-about" role="tabpanel" hidden>
       <div class="about">
-        <div class="bio" id="bio"></div>
+        <div class="bio">
+          <figure class="aboutphoto" id="aboutphoto" hidden></figure>
+          <div id="bio"></div>
+        </div>
         <aside class="facts">
           <h3>Field Notes</h3>
           <ul id="facts"></ul>
@@ -903,6 +925,11 @@ const CONTENT = {
   document.getElementById("facts").innerHTML = (CONTENT.about.facts || []).map(function (f) {
     return "<li><b>" + esc(f.label) + "</b><span>" + esc(f.value) + "</span></li>";
   }).join("");
+  if (CONTENT.about.photo) {
+    var aboutPhoto = document.getElementById("aboutphoto");
+    aboutPhoto.innerHTML = '<img src="' + esc(CONTENT.about.photo) + '" alt="' + esc(CONTENT.about.photoAlt || "") + '">';
+    aboutPhoto.hidden = false;
+  }
 
   /* ---------- section tabs ----------
      Change DEFAULT_PANEL to pick which section loads first. */
