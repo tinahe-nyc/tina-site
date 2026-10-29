@@ -566,8 +566,8 @@ const CONTENT = {
     <p class="tagline" id="tagline"></p>
 
     <nav class="sidenav" role="tablist" aria-label="Sections">
-      <button class="tab" role="tab" data-panel="about" aria-selected="false">About</button>
-      <button class="tab" role="tab" data-panel="quests" aria-selected="true">Quest Log</button>
+      <button class="tab" role="tab" data-panel="about" aria-selected="true">About</button>
+      <button class="tab" role="tab" data-panel="quests" aria-selected="false">Quest Log</button>
       <button class="tab" role="tab" data-panel="art" aria-selected="false">Art</button>
       <button class="tab" role="tab" data-panel="microscopy" aria-selected="false">Microscopy</button>
       <button class="tab" role="tab" data-panel="writing" aria-selected="false">Writing</button>
@@ -577,7 +577,7 @@ const CONTENT = {
   </aside>
 
   <main>
-    <section id="panel-about" role="tabpanel" hidden>
+    <section id="panel-about" role="tabpanel">
       <div class="about">
         <div class="bio">
           <figure class="aboutphoto" id="aboutphoto" hidden></figure>
@@ -590,7 +590,7 @@ const CONTENT = {
       </div>
     </section>
 
-    <section id="panel-quests" role="tabpanel">
+    <section id="panel-quests" role="tabpanel" hidden>
       <div class="subtabs" role="tablist" aria-label="Project shelf">
         <button class="subtab" role="tab" data-shelf="current" aria-selected="true">Current</button>
         <button class="subtab" role="tab" data-shelf="past" aria-selected="false">Past</button>
@@ -934,7 +934,7 @@ const CONTENT = {
   /* ---------- section tabs ----------
      Change DEFAULT_PANEL to pick which section loads first. */
   var PANELS = ["about", "quests", "art", "microscopy", "writing"];
-  var DEFAULT_PANEL = "quests";
+  var DEFAULT_PANEL = "about";
 
   var show = function (which) {
     PANELS.forEach(function (p) {
