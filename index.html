@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tina He</title>
-<meta name="description" content="Quests, art, microscopy, and writing.">
+<meta name="description" content="Quests, art, microscopy, and reading.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -107,7 +107,7 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
 .sidefoot{margin:30px 0 0;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 @media (max-width:900px){.sidefoot{display:none}}
 
-/* ---------- link rows (quest log + writing) ---------- */
+/* ---------- link rows ---------- */
 .linkrow{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
 .inklink{
   font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.14em;
@@ -166,9 +166,40 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
   .qdate{flex-basis:100%}
 }
 
+/* ---------- reading ----------
+   Same sheet as the quest log. "Up next" is a card stuck on top of it. */
+.readwrap{max-width:900px}
+.pile{
+  position:relative; z-index:2; width:min(470px,100%); margin:0 0 -16px auto;
+  padding:20px 22px 16px; background:var(--slate); color:var(--slate-ink);
+  border-radius:15px 255px 15px 225px/225px 15px 255px 15px;
+  box-shadow:5px 5px 0 var(--smudge); transform:rotate(1.2deg);
+}
+.pile::before{
+  content:""; position:absolute; top:-11px; left:38%; width:70px; height:21px;
+  background:var(--smudge); border:1px solid rgba(127,127,127,.3); transform:rotate(-3deg);
+}
+.pile h3{font-family:var(--marker);font-weight:400;font-size:19px;letter-spacing:.4px;margin:0 0 8px}
+.pile ul{list-style:none;margin:0;padding:0}
+.pile li{display:flex;gap:10px;align-items:flex-start;padding:5px 0;font-size:13.5px;line-height:1.45}
+.pile .box{flex:none;width:12px;height:12px;margin-top:4px;border:2px solid currentColor;border-radius:3px 5px 2px 6px}
+.pile a{color:inherit;text-decoration:none;font-weight:700}
+.pile a:hover{text-decoration:underline wavy;text-underline-offset:4px}
+.pile em{opacity:.7;font-size:12.5px}
+.rd{padding:13px 0;border-bottom:1px dashed color-mix(in srgb,var(--edge) 35%,transparent)}
+.rd:first-child{padding-top:0}
+.rd:last-child{border-bottom:0;padding-bottom:0}
+.rd h3{font-family:var(--marker);font-weight:400;font-size:19px;line-height:1.25;margin:0;letter-spacing:.3px}
+.rd h3 a{color:inherit;text-decoration:none}
+.rd h3 a::after{content:" \2197";font-family:var(--mono);font-size:12px;opacity:.45}
+.rd h3 a:hover{text-decoration:underline wavy;text-decoration-thickness:1.5px;text-underline-offset:5px}
+.rd .qdate{font-weight:400;letter-spacing:.06em;text-transform:none;font-size:12px;color:var(--muted)}
+.rnote{margin:5px 0 0;font-size:13.5px;font-style:italic;color:var(--muted)}
+@media (max-width:560px){.pile{margin-bottom:-10px}}
+
 /* ---------- galleries (art + microscopy) ----------
    No frame and no border: a photograph taped straight onto the page. */
-.artgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:52px 38px}
+.artgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:52px 38px;align-items:start}
 .frame{position:relative;margin:0;padding:0;background:none;border:0}
 
 /* the strip of tape holding it down */
@@ -182,8 +213,6 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
   display:block; width:100%; height:auto; border:0;
   box-shadow:0 7px 20px var(--shot-shadow), 0 1px 3px var(--shot-shadow);
 }
-/* art sits on the page as even squares; clicking shows the whole piece */
-#artgrid .frame img{aspect-ratio:1/1;object-fit:cover}
 
 /* the picture itself is the button */
 .shot{
@@ -212,22 +241,6 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
 .frame .meta{font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
 .frame .note{font-size:13px;margin:9px 0 0;color:var(--muted)}
 
-/* ---------- writing ---------- */
-.writing{max-width:760px}
-.entry{
-  position:relative; margin:0 0 26px; padding:22px 24px 20px;
-  background:var(--paper); color:var(--paper-ink);
-  border:2.5px solid var(--edge); box-shadow:6px 6px 0 var(--edge);
-  border-radius:255px 15px 225px 15px/15px 225px 15px 255px;
-}
-.entry h3{font-family:var(--marker);font-weight:400;font-size:22px;margin:0 0 4px;letter-spacing:.4px}
-.entry .meta{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin:0 0 11px}
-.entry p.blurb{margin:0}
-.entry .body{margin:15px 0 0;padding:15px 0 0;border-top:2px dashed var(--edge);display:none}
-.entry.open .body{display:block}
-.entry .body p{margin:0 0 12px}
-.entry .body p:last-child{margin:0}
-
 /* ---------- about ---------- */
 .about{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:32px;align-items:start}
 @media (max-width:820px){.about{grid-template-columns:1fr}}
@@ -252,10 +265,10 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
   display:block; width:100%; height:auto;
   border:2px solid var(--edge); border-radius:6px;
 }
-.facts h3{font-family:var(--marker);font-weight:400;font-size:21px;margin:0 0 14px;letter-spacing:.4px}
 .facts ul{list-style:none;margin:0;padding:0}
 .facts li{display:flex;gap:10px;padding:8px 0;font-size:13.5px;border-bottom:1px dashed currentColor}
-.facts li:last-child{border-bottom:0}
+.facts li:first-child{padding-top:0}
+.facts li:last-child{border-bottom:0;padding-bottom:0}
 .facts li b{flex:none;width:78px;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;padding-top:2px}
 
 /* ---------- lightbox ----------
@@ -504,9 +517,24 @@ const CONTENT = {
     }
   ],
 
-  /* ---------------- WRITING ----------------
-     link: external URL, or "" for none.
-     body: array of paragraphs shown when the entry is opened. [] for none. */
+  /* ---------------- READING ----------------
+     showReading: false hides the Reading tab; change it to true to show it.
+     Newest at the top. Only title is required.
+     status: "read" -> the reading list      "next" -> the Up next card
+     note:   your one-line takeaway, or "" for none. */
+  showReading: false,
+  reading: [
+    {
+      title: "Remark",
+      source: "alpo.ge",
+      url: "https://alpo.ge/remark.pdf",
+      status: "read",
+      note: "Takeaway: remix ideas."
+    }
+  ],
+
+  /* ---------------- WRITING (not shown on the site right now) ----------------
+     The Writing tab is hidden while these are drafts. Kept here for later. */
   writing: [
     {
       title: "A Faustian Bargain",
@@ -561,7 +589,7 @@ const CONTENT = {
       <button class="tab" role="tab" data-panel="quests" aria-selected="false">Quest Log</button>
       <button class="tab" role="tab" data-panel="art" aria-selected="false">Art</button>
       <button class="tab" role="tab" data-panel="microscopy" aria-selected="false">Microscopy</button>
-      <button class="tab" role="tab" data-panel="writing" aria-selected="false">Writing</button>
+      <button class="tab" role="tab" data-panel="reading" aria-selected="false" hidden>Reading</button>
     </nav>
 
     <p class="sidefoot" id="sidefoot"></p>
@@ -575,7 +603,6 @@ const CONTENT = {
           <div id="bio"></div>
         </div>
         <aside class="facts">
-          <h3>Specimen 001</h3>
           <ul id="facts"></ul>
         </aside>
       </div>
@@ -595,8 +622,11 @@ const CONTENT = {
       <div class="artgrid" id="scopegrid"></div>
     </section>
 
-    <section id="panel-writing" role="tabpanel" hidden>
-      <div class="writing" id="writinglist"></div>
+    <section id="panel-reading" role="tabpanel" hidden>
+      <div class="readwrap">
+        <div id="pile"></div>
+        <div class="qlog"><div id="readlog"></div></div>
+      </div>
     </section>
   </main>
 </div>
@@ -863,35 +893,28 @@ const CONTENT = {
     else if (ev.key === "ArrowRight" && viewList.length > 1) stepShot(1);
   });
 
-  /* ---------- writing ---------- */
-  document.getElementById("writinglist").innerHTML = (CONTENT.writing || []).map(function (w, i) {
-    var d = parseDay(w.date);
-    var meta = [w.kind, d ? fmtLong(d) : ""].filter(Boolean).join(" · ");
-    var hasBody = w.body && w.body.length;
-    var links = "";
-    if (hasBody) links += '<button class="inklink" data-read="' + i + '"><span class="txt">Read it</span></button>';
-    var href = safeURL(w.link);
-    if (href) links += '<a class="inklink" href="' + esc(href) +
-      '" target="_blank" rel="noopener"><span class="txt">Open ↗</span></a>';
+  /* ---------- reading ----------
+     Shown in the order listed. "next" entries go on the Up next card. */
+  var reading = CONTENT.reading || [];
+  var titleLink = function (r) {
+    var h = safeURL(r.url);
+    return h ? '<a href="' + esc(h) + '" target="_blank" rel="noopener">' + esc(r.title) + "</a>" : esc(r.title);
+  };
+  var pile = reading.filter(function (r) { return r.status === "next"; });
+  var done = reading.filter(function (r) { return r.status !== "next"; });
 
-    return '<article class="entry" id="entry-' + i + '">' +
-      "<h3>" + esc(w.title) + "</h3>" +
-      (meta ? '<p class="meta">' + esc(meta) + "</p>" : "") +
-      (w.blurb ? '<p class="blurb">' + esc(w.blurb) + "</p>" : "") +
-      (links ? '<div class="linkrow">' + links + "</div>" : "") +
-      (hasBody ? '<div class="body">' + w.body.map(function (para) {
-        return "<p>" + esc(para) + "</p>";
-      }).join("") + "</div>" : "") +
-      "</article>";
-  }).join("") || '<p class="empty">Nothing published yet.</p>';
+  document.getElementById("pile").innerHTML = pile.length
+    ? '<aside class="pile"><h3>Up next</h3><ul>' + pile.map(function (r) {
+        return '<li><span class="box" aria-hidden="true"></span><span>' + titleLink(r) +
+          (r.source ? " <em>— " + esc(r.source) + "</em>" : "") + "</span></li>";
+      }).join("") + "</ul></aside>"
+    : "";
 
-  document.getElementById("writinglist").addEventListener("click", function (ev) {
-    var b = ev.target.closest("[data-read]");
-    if (!b) return;
-    var entry = document.getElementById("entry-" + b.dataset.read);
-    var open = entry.classList.toggle("open");
-    b.querySelector(".txt").textContent = open ? "Close" : "Read it";
-  });
+  document.getElementById("readlog").innerHTML = done.map(function (r) {
+    return '<article class="rd"><div class="qhead"><h3>' + titleLink(r) + "</h3>" +
+      (r.source ? '<span class="qdots"></span><span class="qdate">' + esc(r.source) + "</span>" : "") +
+      "</div>" + (r.note ? '<p class="rnote">' + esc(r.note) + "</p>" : "") + "</article>";
+  }).join("") || '<p class="empty">Nothing logged yet.</p>';
 
   /* ---------- about ---------- */
   document.getElementById("bio").innerHTML = (CONTENT.about.bio || []).map(function (p) {
@@ -908,7 +931,12 @@ const CONTENT = {
 
   /* ---------- section tabs ----------
      Change DEFAULT_PANEL to pick which section loads first. */
-  var PANELS = ["about", "quests", "art", "microscopy", "writing"];
+  var PANELS = ["about", "quests", "art", "microscopy", "reading"];
+  if (CONTENT.showReading) {
+    document.querySelector('.tab[data-panel="reading"]').hidden = false;
+  } else {
+    PANELS.pop();   // "reading" is last
+  }
   var DEFAULT_PANEL = "about";
 
   var show = function (which) {
