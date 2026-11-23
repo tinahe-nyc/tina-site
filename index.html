@@ -107,67 +107,8 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
 .sidefoot{margin:30px 0 0;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 @media (max-width:900px){.sidefoot{display:none}}
 
-/* ---------- sub tabs ---------- */
-.subtabs{display:flex;gap:10px;margin:0 0 30px}
-.subtab{
-  font-family:var(--mono); font-weight:700; font-size:12px; letter-spacing:.15em;
-  text-transform:uppercase; cursor:pointer; padding:8px 17px;
-  background:transparent; color:var(--ink);
-  border:2.5px dashed var(--edge); border-radius:160px 12px 150px 12px/12px 150px 12px 160px;
-}
-.subtab[aria-selected="true"]{border-style:solid;background:var(--slate);color:var(--slate-ink);box-shadow:3px 3px 0 var(--edge)}
-
-/* ---------- board ---------- */
-.board{
-  display:grid; align-items:start; gap:34px 30px;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-}
-@media (max-width:1199px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:699px){.board{grid-template-columns:1fr}}
-
-/* Every card is the same sheet of paper: white by day, black by night.
-   Thin rule, no second stroke — a note, not a sketch. */
-.card{
-  position:relative; margin:0; padding:22px 24px 20px;
-  border:1.5px solid var(--card-ink); box-shadow:4px 4px 0 var(--edge);
-  border-radius:255px 15px 225px 15px/15px 225px 15px 255px;
-  background:var(--card-bg); color:var(--card-ink);
-  transition:transform .14s ease, box-shadow .14s ease;
-}
-.card:hover{transform:translate(2px,2px) rotate(0deg)!important;box-shadow:2px 2px 0 var(--edge)}
-.card::before{
-  content:""; position:absolute; top:-11px; left:50%; width:66px; height:20px;
-  background:var(--smudge); border:1px solid var(--smudge);
-  transform:translateX(-50%) rotate(-2.5deg);
-}
-.card h3{
-  font-family:var(--marker); font-weight:400; font-size:23px; line-height:1.2;
-  margin:2px 0 12px; letter-spacing:.4px;
-}
-.card p.desc{margin:2px 0 0;font-size:14px}
-.squig{display:block;width:64px;height:7px;opacity:.5;margin:-8px 0 10px}
-.squig path{stroke:currentColor;stroke-width:1.6;fill:none}
-
-/* Description and Next are one thought, so they sit close together. */
-.next{display:flex;gap:9px;align-items:flex-start;margin:10px 0 0;font-size:13.5px}
-.next svg{flex:none;width:15px;height:15px;margin-top:3px;stroke:currentColor;fill:none;stroke-width:1.8}
-.next b{font-weight:700}
-
-/* The date is quiet text under the title, not a frame. Only the real
-   link should look clickable on a card. Opacity rather than a fixed
-   colour so it stays muted on both the light and dark card. */
-.carddate{
-  display:block; margin:-6px 0 13px;
-  font-size:10.5px; font-weight:700; letter-spacing:.15em;
-  text-transform:uppercase; opacity:.55;
-}
-.carddate.soon{opacity:1}
-
-/* ---------- link rows (project cards + writing) ---------- */
+/* ---------- link rows (quest log + writing) ---------- */
 .linkrow{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
-/* A wider gap before the link than between description and Next,
-   so the link reads as the separate, actionable thing. */
-.card .linkrow{margin:22px 0 0}
 .inklink{
   font-family:var(--mono); font-size:10.5px; font-weight:700; letter-spacing:.14em;
   text-transform:uppercase; cursor:pointer; padding:5px 13px;
@@ -177,6 +118,53 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
 }
 .inklink:hover{background:currentColor}
 .inklink:hover .txt{color:var(--card-bg)}
+
+/* ---------- quest log ----------
+   One sheet, like the contents page of a zine. Each quest is a line:
+   title, dotted leader, date; then the description, the Next step
+   (only if there is one), and its links. */
+.qlog{
+  position:relative; max-width:900px;
+  padding:30px clamp(18px,4vw,42px) 22px;
+  background:var(--paper); color:var(--paper-ink);
+  border:2.5px solid var(--edge); box-shadow:7px 7px 0 var(--edge);
+  border-radius:255px 15px 225px 15px/15px 225px 15px 255px;
+  transform:rotate(-.35deg);
+}
+.qlog::before{
+  content:""; position:absolute; top:-12px; left:50%; width:84px; height:23px;
+  background:var(--smudge); border:1px solid var(--smudge);
+  transform:translateX(-50%) rotate(-2deg);
+}
+.qlog h2{
+  font-family:var(--marker); font-weight:400; text-transform:uppercase;
+  font-size:clamp(30px,5.5vw,44px); line-height:1; letter-spacing:1px;
+  margin:0; padding-bottom:12px; border-bottom:2.5px solid var(--edge);
+}
+.qsec{font-family:var(--marker);font-size:19px;letter-spacing:.4px;margin:24px 0 0}
+#qlog .qsec:first-child{margin-top:0}
+.quest{
+  display:grid; grid-template-columns:30px minmax(0,1fr); gap:0 12px;
+  padding:15px 0; border-bottom:1px dashed color-mix(in srgb,var(--edge) 35%,transparent);
+}
+.quest:last-child{border-bottom:0}
+.qnum{font-weight:700;font-size:12px;opacity:.5;padding-top:7px}
+.qhead{display:flex;align-items:baseline;gap:10px}
+.qhead h3{font-family:var(--marker);font-weight:400;font-size:21px;line-height:1.2;margin:0;letter-spacing:.3px}
+.qdots{flex:1;min-width:24px;border-bottom:2px dotted var(--edge);opacity:.35;transform:translateY(-5px)}
+.qdate{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.qdate.soon{background:var(--slate);color:var(--slate-ink);padding:1px 8px;border-radius:150px 11px 140px 11px/11px 140px 11px 150px}
+.qdesc{margin:5px 0 0;font-size:14px}
+.qnext{display:flex;gap:7px;margin:7px 0 0;font-size:13.5px;font-style:italic;color:var(--muted)}
+.qnext b{font-style:normal;font-weight:700;color:var(--paper-ink);white-space:nowrap}
+.quest .linkrow{margin:13px 0 0}
+.quest.past h3{opacity:.8}
+@media (max-width:560px){
+  .quest{grid-template-columns:22px minmax(0,1fr);gap:0 10px}
+  .qhead{flex-wrap:wrap;row-gap:4px}
+  .qdots{display:none}
+  .qdate{flex-basis:100%}
+}
 
 /* ---------- galleries (art + microscopy) ----------
    No frame and no border: a photograph taped straight onto the page. */
@@ -194,6 +182,8 @@ nav.sidenav{display:flex;flex-direction:column;gap:11px;margin:30px 0 0}
   display:block; width:100%; height:auto; border:0;
   box-shadow:0 7px 20px var(--shot-shadow), 0 1px 3px var(--shot-shadow);
 }
+/* art sits on the page as even squares; clicking shows the whole piece */
+#artgrid .frame img{aspect-ratio:1/1;object-fit:cover}
 
 /* the picture itself is the button */
 .shot{
@@ -318,7 +308,7 @@ body.lb-open{overflow:hidden}
    EVERYTHING YOU EDIT LIVES IN THIS ONE OBJECT.
    Change the text below, save the file, push. Nothing else to touch.
 
-   PROJECT SHELF   ->  "current" | "past"      (Current / Past tab)
+   PROJECT SHELF   ->  "current" | "past"      (Current / Completed section)
    DATE            ->  "YYYY-MM-DD" or null. A real upcoming date; highlights when
                        it is within a week. Use this for things still ahead of you.
    WHEN            ->  Free text for a span already behind you, e.g. "Jul – Dec 2025".
@@ -548,7 +538,7 @@ const CONTENT = {
     ],
     facts: [
       { label: "Habitat", value: "NYC" },
-      { label: "Interests", value: "Biodiversity, Epistemology, Nutrition" },
+      { label: "Interests", value: "Community, Biodiversity, Epistemology, Nutrition" },
       { label: "Diet", value: "Omnivore, mostly plants" },
       { label: "Reading", value: "Atlas of the Heart" },
       { label: "Email", value: "tinahe.nyc@gmail.com" }
@@ -592,11 +582,9 @@ const CONTENT = {
     </section>
 
     <section id="panel-quests" role="tabpanel" hidden>
-      <div class="subtabs" role="tablist" aria-label="Project shelf">
-        <button class="subtab" role="tab" data-shelf="current" aria-selected="true">Current</button>
-        <button class="subtab" role="tab" data-shelf="past" aria-selected="false">Past</button>
+      <div class="qlog">
+        <div id="qlog"></div>
       </div>
-      <div class="board" id="board"></div>
     </section>
 
     <section id="panel-art" role="tabpanel" hidden>
@@ -700,61 +688,47 @@ const CONTENT = {
 
   var projects = CONTENT.projects || [];
 
-  /* ---------- project board ---------- */
-  var SQUIG = '<svg class="squig" viewBox="0 0 64 7" aria-hidden="true">' +
-    '<path d="M1 5 Q8 1 15 5 T29 5 T43 5 T57 5" stroke-linecap="round"/></svg>';
-  var CAL = '<svg viewBox="0 0 24 24" aria-hidden="true">' +
-    '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>';
-
-  var tilt = function (i) { return [-1.4, 1.1, -0.6, 1.6, -1.1, 0.7, -1.8, 1.3][i % 8]; };
-
-  var cardHTML = function (p, i) {
+  /* ---------- quest log ----------
+     Fixed order on every quest: title, date, description, Next, links.
+     Anything missing is simply skipped. */
+  var questHTML = function (p, n) {
     var d = parseDay(p.date);
     var out = d ? daysOut(d) : null;
-    var soon = out !== null && out >= 0 && out <= 7;
+    var soon = !p.when && out !== null && out >= 0 && out <= 7;
+    var dateText = p.when ? p.when : (d ? fmtShort(d) : "");
+    var past = (p.shelf || "current") === "past";
+    var next = String(p.next == null ? "" : p.next).trim();
 
-    var chipText = p.when ? p.when : (d ? fmtShort(d) : "");
-    var chip = chipText
-      ? '<span class="carddate' + (soon && !p.when ? " soon" : "") + '">' +
-        esc(chipText) + "</span>"
-      : "";
-
-    var nextLine = p.next
-      ? '<div class="next">' + CAL + "<div><b>Next:</b> " + esc(p.next) + "</div></div>"
-      : "";
-
-    return '<article class="card" style="transform:rotate(' +
-      tilt(i) + 'deg)">' +
-      // Fixed order on every card: title, date, description, next, link.
-      // Anything missing is simply skipped; the order never changes.
-      "<h3>" + esc(p.title) + "</h3>" + SQUIG + chip +
-      (p.desc ? '<p class="desc">' + esc(p.desc) + "</p>" : "") +
-      nextLine +
-      linkRow(p.links) +
-      "</article>";
+    return '<article class="quest' + (past ? " past" : "") + '">' +
+      '<span class="qnum">' + (n < 10 ? "0" : "") + n + "</span>" +
+      "<div>" +
+        '<div class="qhead"><h3>' + esc(p.title) + "</h3>" +
+          (dateText
+            ? '<span class="qdots"></span><span class="qdate' + (soon ? " soon" : "") + '">' + esc(dateText) + "</span>"
+            : "") +
+        "</div>" +
+        (p.desc ? '<p class="qdesc">' + esc(p.desc) + "</p>" : "") +
+        (next ? '<p class="qnext"><b>&rarr; Next:</b><span>' + esc(next) + "</span></p>" : "") +
+        linkRow(p.links) +
+      "</div>" +
+    "</article>";
   };
 
-  var board = document.getElementById("board");
-  var shelf = "current";
-  var drawBoard = function () {
-    var list = projects.filter(function (p) {
-      return (p.shelf || "current") === shelf;
-    });
-    board.innerHTML = list.length
-      ? list.map(cardHTML).join("")
-      : '<p class="empty">Nothing on this shelf yet.</p>';
+  var drawQuests = function () {
+    var cur = projects.filter(function (p) { return (p.shelf || "current") !== "past"; });
+    var past = projects.filter(function (p) { return p.shelf === "past"; });
+    var n = 1;
+    var block = function (label, list) {
+      return list.length
+        ? '<div class="qsec">' + label + "</div>" +
+          list.map(function (p) { return questHTML(p, n++); }).join("")
+        : "";
+    };
+    document.getElementById("qlog").innerHTML =
+      (block("Current", cur) + block("Completed", past)) ||
+      '<p class="empty">Nothing in the log yet.</p>';
   };
-
-  Array.prototype.forEach.call(document.querySelectorAll(".subtab"), function (b) {
-    b.addEventListener("click", function () {
-      shelf = b.dataset.shelf;
-      Array.prototype.forEach.call(document.querySelectorAll(".subtab"), function (o) {
-        o.setAttribute("aria-selected", String(o === b));
-      });
-      drawBoard();
-    });
-  });
-  drawBoard();
+  drawQuests();
 
   /* ---------- galleries ----------
      A frame that actually has an image becomes a button and records its
