@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A gallery of personal sites, public notebooks, and the handmade web.">
+  <meta name="theme-color" content="#f7f5ee">
+  <title>Personal Web Field Guide</title>
+  <link rel="stylesheet" href="style.css?v=gallery-feed">
+  <script src="data.js?v=unified-feed" defer></script>
+  <script src="gallery.js?v=unified-feed" defer></script>
+</head>
+<body id="top">
+  <a class="skip" href="#feed">Skip to gallery</a>
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a class="wordmark" href="#top">Web Field Guide</a>
+      <button class="plain-button" type="button" id="surprise">Surprise me</button>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="intro" aria-labelledby="title">
+      <h1 id="title">The personal web<span>.</span></h1>
+      <p>A gallery of places people made for themselves.</p>
+    </section>
+    <div class="toolbar" id="browse-controls">
+      <div class="filters" role="group" aria-label="Filter gallery">
+        <button type="button" data-mode="all" aria-pressed="true">Explore</button>
+        <button type="button" data-mode="saved" aria-pressed="false">Saved</button>
+      </div>
+      <label class="search"><span class="sr-only">Search the gallery</span><span class="search-icon" aria-hidden="true"></span><input type="search" id="search" placeholder="Search the gallery"></label>
+    </div>
+    <section id="feed" aria-label="Gallery">
+      <div class="feed-header">
+        <p id="result-count" role="status"></p>
+      </div>
+      <div class="feed-grid" id="feed-grid"></div>
+      <p class="empty" id="empty" hidden></p>
+    </section>
+    <noscript><p>Enable JavaScript to browse the gallery.</p></noscript>
+  </main>
+  <footer class="wrap footer">
+    <a href="#top">Back to top</a>
+    <span>Featuring selections from <a href="https://kwon.nyc/internet/" target="_blank" rel="noopener noreferrer">Rachel Kwon’s reading list</a>.</span>
+  </footer>
+  <dialog id="item-dialog" aria-labelledby="detail-title">
+    <div class="dialog-toolbar">
+      <p id="detail-position"></p>
+      <form method="dialog"><button class="plain-button" type="submit" autofocus>Close</button></form>
+    </div>
+    <figure class="detail-visual">
+      <img id="detail-image" alt="">
+      <figcaption id="detail-credit"></figcaption>
+    </figure>
+    <div class="detail-body">
+      <p class="detail-source" id="detail-source"></p>
+      <h2 id="detail-title"></h2>
+      <p class="detail-description" id="detail-description"></p>
+      <div class="detail-actions">
+        <a class="primary-button" id="detail-link" target="_blank" rel="noopener noreferrer">Visit page</a>
+        <button class="plain-button" type="button" id="detail-save" aria-pressed="false">Save</button>
+      </div>
+    </div>
+    <div class="dialog-nav" aria-label="Browse previews">
+      <button class="plain-button" id="detail-previous" type="button">Previous</button>
+      <button class="plain-button" id="detail-next" type="button">Next</button>
+    </div>
+  </dialog>
+</body>
+</html>

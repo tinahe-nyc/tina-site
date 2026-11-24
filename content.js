@@ -58,7 +58,7 @@ var CONTENT = {
   /* ---------------- ART ----------------
      r: width ÷ height of the picture (4:3 landscape = 1.333, 3:4 portrait = 0.75). */
   art: [
-    { t: "Plaster Cast Study", m: "oil on canvas", img: "art/plaster-cast-study.jpg", r: 1.006 },
+    { t: "Plaster Cast Study", m: "oil paint on canvas", img: "art/plaster-cast-study.jpg", r: 1.006 },
     { t: "Vegetarian Menu", m: "gold ink on cardstock", img: "art/vegetarian-menu.jpg", full: "art/vegetarian-menu-full.jpg", r: 1.333 },
     { t: "Insect Tote", m: "fabric paint on canvas", img: "art/insect-tote.jpg", full: "art/insect-tote-full.jpg", r: 1.333 },
     { t: "Carrier Pigeon", m: "pencil and marker on paper", img: "art/pigeon.jpg", full: "art/pigeon-full.jpg", r: 0.75 }
@@ -74,7 +74,10 @@ var CONTENT = {
       d: "Type something in English and get the Cantonese people actually say out loud, not the textbook version. Each word comes with jyutping and audio, plus a note on why it's said that way." },
     { t: "Bite Size", img: "tools/bite-size.jpg",
       d: "Simplify recipes. Paste a recipe or a link and get back a short kitchen card, with each ingredient sitting next to the step that uses it.",
-      l: [["Try it", "https://bite-size-recipes.vercel.app/"]] }
+      l: [["Try it", "https://bite-size-recipes.vercel.app/"]] },
+    { t: "Bloom Scroll", img: "tools/bloom-scroll.jpg",
+      d: "A feed to scroll instead of doomscrolling, filled with things that feed my long-term goals. First scroll: personal websites, for inspiration while I build my own.",
+      l: [["Scroll it", "bloom-scroll/index.html"]] }
   ],
 
   /* ---------------- READING ----------------
