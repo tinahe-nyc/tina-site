@@ -174,16 +174,17 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !lb.hidden) close(); });
   }
 
-  /* ---------- underline the section you're reading (home page) ---------- */
+  /* ---------- underline the section you're reading (home page only;
+     other pages mark their own link with class="here" in the HTML) ---------- */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll(".contents a"));
-  if (navLinks.length && "IntersectionObserver" in window) {
+  if ($("about") && navLinks.length && "IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (en) {
         if (en.isIntersecting) navLinks.forEach(function (a) {
-          a.classList.toggle("here", a.getAttribute("href") === "#" + en.target.id);
+          a.classList.toggle("here", a.getAttribute("data-sec") === en.target.id);
         });
       });
     }, { rootMargin: "-30% 0px -60% 0px" });
-    document.querySelectorAll("section.part").forEach(function (s) { io.observe(s); });
+    document.querySelectorAll("section.part[id]").forEach(function (s) { io.observe(s); });
   }
 })();

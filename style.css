@@ -52,6 +52,9 @@ hr.double{border:0;height:5px;border-top:1px solid var(--rule-strong);border-bot
 .contents a{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:2px 0;border-bottom:1.5px solid transparent}
 .contents a i{font-family:var(--serif);font-style:italic;letter-spacing:0;text-transform:none;font-size:14px;color:var(--rubric);margin-right:5px}
 .contents a:hover,.contents a.here{border-bottom-color:var(--rubric)}
+/* centered on wide screens; on phones it starts at the left and scrolls sideways */
+.contents .wrap{justify-content:center}
+@media (max-width:720px){.contents .wrap{justify-content:flex-start}}
 
 /* ---------- sections ---------- */
 section.part{padding:72px 0 0}
