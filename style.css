@@ -126,7 +126,7 @@ figcaption span{font-style:italic;color:var(--muted)}
 .tools{border-top:1px solid var(--rule-strong)}
 .tool{display:grid;grid-template-columns:220px minmax(0,1fr);gap:32px;padding:28px 0;border-bottom:1px solid var(--rule);align-items:start}
 .tool .frame{padding:10px}
-.tool .frame img{aspect-ratio:4/3;object-fit:cover;object-position:top}
+.tool .frame img{aspect-ratio:4/3;object-fit:cover;object-position:left top}
 .tool h3{font-weight:500;font-size:clamp(23px,2.7vw,30px);line-height:1.15;margin:0 0 8px;letter-spacing:-.005em}
 .tool p{margin:0;max-width:58ch}
 .tool .wip{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rubric);margin:0 0 8px}
