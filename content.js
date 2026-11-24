@@ -58,6 +58,7 @@ var CONTENT = {
   /* ---------------- ART ----------------
      r: width ÷ height of the picture (4:3 landscape = 1.333, 3:4 portrait = 0.75). */
   art: [
+    { t: "Plaster Cast Study", m: "oil on canvas", img: "art/plaster-cast-study.jpg", r: 1.006 },
     { t: "Vegetarian Menu", m: "gold ink on cardstock", img: "art/vegetarian-menu.jpg", full: "art/vegetarian-menu-full.jpg", r: 1.333 },
     { t: "Insect Tote", m: "fabric paint on canvas", img: "art/insect-tote.jpg", full: "art/insect-tote-full.jpg", r: 1.333 },
     { t: "Carrier Pigeon", m: "pencil and marker on paper", img: "art/pigeon.jpg", full: "art/pigeon-full.jpg", r: 0.75 }
