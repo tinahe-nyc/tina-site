@@ -74,11 +74,12 @@
   var figure = function (o, style) {
     return "<figure" + (style ? ' style="' + style + '"' : "") + ">" + shot(o) + "<figcaption>" + cap(o) + "</figcaption></figure>";
   };
-  var capped = function (el, list, limit, href, noun) {
+  /* label: the See-all link's words, e.g. "Full reading list"; otherwise "See all N <noun>". */
+  var capped = function (el, list, limit, href, noun, label) {
     var full = el.hasAttribute("data-full");
     var shown = full ? list : list.slice(0, limit);
     if (!full && shown.length < list.length)
-      el.insertAdjacentHTML("afterend", more(href, "See all " + list.length + " " + noun));
+      el.insertAdjacentHTML("afterend", more(href, label ? label + " (" + list.length + ")" : "See all " + list.length + " " + noun));
     return shown;
   };
 
@@ -103,7 +104,7 @@
   /* Finished reads get a red check in the margin; everything else is blank. */
   var rEl = $("reading-list");
   if (rEl) {
-    var rs = capped(rEl, C.reading, C.limits.reading, "reading.html", "readings");
+    var rs = capped(rEl, C.reading, C.limits.reading, "reading.html", "readings", "Full reading list");
     rEl.innerHTML = rs.map(function (r) {
       return '<article class="read"><div class="check">' +
         (r.status === "read" ? '<span aria-hidden="true">✓</span><span class="sr">Finished:</span>' : "") + "</div><div>" +

@@ -8,7 +8,7 @@ var CONTENT = {
     currentOnHome: 3,     // quest log on the home page: this many current...
     completedOnHome: 3,   // ...and this many completed (newest first)
     gallery: 8,           // microscope and art: rows of 4, so 8 or 12 fill rows
-    reading: 5,
+    reading: 3,
     tools: 5
   },
 
@@ -83,7 +83,19 @@ var CONTENT = {
   reading: [
     { title: "Lowering the Barr: Rethinking Causality in Complex Autoimmunity Through Epstein-Barr Virus in Multiple Sclerosis",
       source: "Neurology: Neuroimmunology & Neuroinflammation", url: "https://www.neurology.org/doi/10.1212/NXI.0000000000200680",
-      status: "reading", note: "" }
+      status: "reading", note: "" },
+    { title: "The Intent Debt", source: "Addy Osmani",
+      url: "https://addyosmani.com/blog/intent-debt/", status: "reading", note: "" },
+    { title: "How I Write Papers", source: "thoughtforms.life",
+      url: "https://thoughtforms.life/how-i-write-papers/", status: "reading", note: "" },
+    { title: "Time in the Chaos", source: "Sharon Li",
+      url: "https://pages.cs.wisc.edu/~sharonli/time-in-the-chaos.html", status: "reading", note: "" },
+    { title: "Bumbition", source: "Noahpinion",
+      url: "https://www.noahpinion.blog/p/bumbition", status: "reading", note: "" },
+    { title: "The Great Convergence", source: "Nicholas Charriere",
+      url: "https://nicholascharriere.com/blog/the-great-convergence/", status: "reading", note: "" },
+    { title: "Welcome to the B2A Economy", source: "a16z",
+      url: "https://www.a16z.news/p/welcome-to-the-b2a-economy", status: "reading", note: "" }
   ],
 
   /* ---------------- THINGS I'M INTO ----------------
