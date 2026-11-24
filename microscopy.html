@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" data-root="" data-site="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microscopy · Tina He</title>
+<meta name="description" content="Everything I've looked at under the microscope.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>try{if(localStorage.getItem("ed")==="night")document.documentElement.setAttribute("data-ed","night")}catch(e){}</script>
+</head>
+<body>
+<header class="mast mini wrap">
+  <div class="topline">
+    <a class="mono" href="index.html">← Tina He</a>
+    <button class="edbtn" id="ed" type="button">☾ Dark</button>
+  </div>
+  <hr class="double">
+  <h1>Microscopy</h1>
+  <p class="tag">Everything I've put under the lens.</p>
+  <hr class="double">
+</header>
+<main class="wrap">
+  <section class="part" style="padding-top:56px">
+    <div class="scope" id="scope" data-full></div>
+  </section>
+
+  <footer>
+    <hr class="double">
+    <p class="hello">Say hello: <a href="mailto:tinahe.nyc@gmail.com">tinahe.nyc@gmail.com</a></p>
+    <p>Made by hand in New York. Updated whenever.<span class="orn" aria-hidden="true">❦</span></p>
+  </footer>
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+  <button class="x" id="lbx" type="button">Close</button>
+  <figure><img id="lbimg" alt=""><video id="lbvid" controls playsinline hidden></video><figcaption id="lbcap"></figcaption></figure>
+</div>
+
+<script src="content.js"></script>
+<script src="site.js"></script>
+</body>
+</html>
