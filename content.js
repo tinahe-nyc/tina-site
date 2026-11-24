@@ -85,6 +85,8 @@ var CONTENT = {
      finished it; "reading" or "next" leave it blank.
      note: your short comment, or "" for none. */
   reading: [
+    { title: "Which Kind of Science Reform", source: "Richard McElreath",
+      url: "https://elevanth.org/blog/2025/07/09/which-kind-of-science-reform/", status: "reading", note: "" },
     { title: "Lowering the Barr: Rethinking Causality in Complex Autoimmunity Through Epstein-Barr Virus in Multiple Sclerosis",
       source: "Neurology: Neuroimmunology & Neuroinflammation", url: "https://www.neurology.org/doi/10.1212/NXI.0000000000200680",
       status: "reading", note: "" },
