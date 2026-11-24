@@ -97,7 +97,7 @@ var CONTENT = {
     { title: "Time in the Chaos", source: "Sharon Li",
       url: "https://pages.cs.wisc.edu/~sharonli/time-in-the-chaos.html", status: "reading", note: "" },
     { title: "Bumbition", source: "Noahpinion",
-      url: "https://www.noahpinion.blog/p/bumbition", status: "reading", note: "" },
+      url: "https://www.noahpinion.blog/p/bumbition", status: "read", note: "" },
     { title: "The Great Convergence", source: "Nicholas Charriere",
       url: "https://nicholascharriere.com/blog/the-great-convergence/", status: "reading", note: "" },
     { title: "Welcome to the B2A Economy", source: "a16z",
