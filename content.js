@@ -71,7 +71,7 @@ var CONTENT = {
      and add l: [["Try it", "https://..."]]. */
   tools: [
     { t: "Colloquial Canto Translator", img: "tools/cantonese.jpg", building: 1,
-      d: "Type something in English and get the Cantonese people actually say out loud, not the textbook version. Each word comes with jyutping and audio, plus a note on why it's said that way." },
+      d: "Type or say something in English and get what Cantonese people would actually say, not the formal textbook version. Each word comes with jyutping and audio, plus a note on why it's said that way." },
     { t: "Bite Size", img: "tools/bite-size.jpg",
       d: "Simplify recipes. Paste a recipe or a link and get back a short kitchen card, with each ingredient sitting next to the step that uses it.",
       l: [["Try it", "https://bite-size-recipes.vercel.app/"]] },
