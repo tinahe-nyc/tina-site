@@ -57,8 +57,9 @@ hr.double{border:0;height:5px;border-top:1px solid var(--rule-strong);border-bot
 @media (max-width:720px){.contents .wrap{justify-content:flex-start}}
 
 /* ---------- sections ---------- */
-section.part{padding:72px 0 0}
-.phead{display:flex;align-items:baseline;gap:16px;margin-bottom:30px}
+section.part{padding:50px 0 0}
+@media (max-width:640px){section.part{padding-top:42px}}
+.phead{display:flex;align-items:baseline;gap:16px;margin-bottom:22px}
 .phead .num{font-style:italic;font-size:28px;color:var(--rubric)}
 .phead h2{font-weight:400;font-size:clamp(30px,4vw,44px);line-height:1.05;margin:0;letter-spacing:-.01em}
 
@@ -99,7 +100,7 @@ section.part{padding:72px 0 0}
 .entry.done .when b{font-size:24px}
 /* one-line completed quests on the home page */
 .entry.brief{padding:14px 0;align-items:baseline}
-.entry.brief .when{padding-top:0}
+.entry.brief .when{padding-top:0;white-space:nowrap}
 .entry.brief .when b{display:inline;font-size:20px;margin-right:8px}
 .entry.brief h3{font-size:clamp(19px,2vw,22px);margin:0}
 @media (max-width:860px){.entry{grid-template-columns:110px minmax(0,1fr)}}
@@ -185,7 +186,7 @@ figcaption span{font-style:italic;color:var(--muted)}
 .end .mono{display:inline-block;margin-top:14px;text-decoration:none;color:var(--rubric)}
 
 /* footer */
-footer{margin:96px 0 0;padding:0 0 56px;text-align:center}
+footer{margin:72px 0 0;padding:0 0 56px;text-align:center}
 footer p{margin:22px 0 0;font-style:italic;color:var(--muted);font-size:15.5px}
 footer .hello{font-style:normal;color:var(--ink);font-size:18px;margin-top:28px}
 footer .hello a{text-decoration-color:var(--rubric);text-underline-offset:4px}
