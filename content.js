@@ -88,17 +88,17 @@ var CONTENT = {
      finished it; "reading" or "next" leave it blank.
      note: your short comment, or "" for none. */
   reading: [
-    { title: "Queuing Theory, Slack and Utilisation", source: "Tom Geraghty",
-      url: "https://psychsafety.com/queueing-theory-slack-and-resilience/", status: "reading", note: "" },
+    { title: "Lowering the Barr: Rethinking Causality in Complex Autoimmunity Through Epstein-Barr Virus in Multiple Sclerosis",
+      source: "Neurology: Neuroimmunology & Neuroinflammation", url: "https://www.neurology.org/doi/10.1212/NXI.0000000000200680",
+      status: "reading", note: "" },
     { title: "Do the Simplest Thing That Could Possibly Work", source: "Sean Goedecke",
       url: "https://www.seangoedecke.com/the-simplest-thing-that-could-possibly-work/", status: "reading", note: "" },
     { title: "Which Kind of Science Reform", source: "Richard McElreath",
       url: "https://elevanth.org/blog/2025/07/09/which-kind-of-science-reform/", status: "reading", note: "" },
     { title: "Everything I Know About Good System Design", source: "Sean Goedecke",
       url: "https://www.seangoedecke.com/good-system-design/", status: "reading", note: "" },
-    { title: "Lowering the Barr: Rethinking Causality in Complex Autoimmunity Through Epstein-Barr Virus in Multiple Sclerosis",
-      source: "Neurology: Neuroimmunology & Neuroinflammation", url: "https://www.neurology.org/doi/10.1212/NXI.0000000000200680",
-      status: "reading", note: "" },
+    { title: "Queuing Theory, Slack and Utilisation", source: "Tom Geraghty",
+      url: "https://psychsafety.com/queueing-theory-slack-and-resilience/", status: "reading", note: "" },
     { title: "The Intent Debt", source: "Addy Osmani",
       url: "https://addyosmani.com/blog/intent-debt/", status: "reading", note: "" },
     { title: "How I Write Papers", source: "thoughtforms.life",
