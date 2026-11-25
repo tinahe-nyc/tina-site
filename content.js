@@ -88,6 +88,9 @@ var CONTENT = {
      finished it; "reading" or "next" leave it blank.
      note: your short comment, or "" for none. */
   reading: [
+    { title: "Doing Nothing at Work", source: "Sean Goedecke",
+      url: "https://www.seangoedecke.com/doing-nothing-at-work/", status: "read",
+      note: "Resonates with how I've been thinking lately about the need for mental space." },
     { title: "Which Kind of Science Reform", source: "Richard McElreath",
       url: "https://elevanth.org/blog/2025/07/09/which-kind-of-science-reform/", status: "reading", note: "" },
     { title: "Lowering the Barr: Rethinking Causality in Complex Autoimmunity Through Epstein-Barr Virus in Multiple Sclerosis",
