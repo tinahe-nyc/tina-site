@@ -103,6 +103,7 @@ section.part{padding:50px 0 0}
 .entry.brief .when{padding-top:0;white-space:nowrap}
 .entry.brief .when b{display:inline;font-size:20px;margin-right:8px}
 .entry.brief h3{font-size:clamp(19px,2vw,22px);margin:0}
+.entry.brief .lnks{margin-top:8px}
 @media (max-width:860px){.entry{grid-template-columns:110px minmax(0,1fr)}}
 @media (max-width:560px){.entry{grid-template-columns:1fr;gap:6px}.entry .when{padding-top:0}.entry .when b,.entry.done .when b{display:inline;font-size:20px;margin-right:8px}
   .entry.brief{grid-template-columns:118px minmax(0,1fr);gap:10px;padding:12px 0}.entry.brief .when b{font-size:17px;margin-right:6px}.entry.brief h3{font-size:18px}}

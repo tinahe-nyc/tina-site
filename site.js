@@ -46,13 +46,14 @@
   };
   var quest = function (q) {
     return '<article class="entry' + (q.cur ? "" : " done") + '"><div class="when">' + when(q) + "</div><div>" +
-      "<h3>" + title(q) + "</h3><p>" + esc(q.d) + "</p>" +
+      "<h3>" + title(q) + "</h3>" + (q.d ? "<p>" + esc(q.d) + "</p>" : "") +
       (q.n ? '<p class="next"><b>Next</b>' + esc(q.n) + "</p>" : "") + links(q.l) + "</div></article>";
   };
-  /* Completed quests on the home page: one line each (date and title).
-     The full quest log keeps their descriptions and links. */
+  /* Completed quests on the home page: date and title, with any links on the
+     line below (same as current quests). The full quest log keeps descriptions too. */
   var brief = function (q) {
-    return '<article class="entry done brief"><div class="when">' + when(q) + "</div><h3>" + title(q) + "</h3></article>";
+    return '<article class="entry done brief"><div class="when">' + when(q) + "</div><div><h3>" +
+      title(q) + "</h3>" + links(q.l) + "</div></article>";
   };
   var qEl = $("quests-list");
   if (qEl) {
