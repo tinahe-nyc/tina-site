@@ -105,7 +105,7 @@ var CONTENT = {
       url: "https://thoughtforms.life/how-i-write-papers/", status: "reading", note: "" },
     { title: "Time in the Chaos", source: "Sharon Li",
       url: "https://pages.cs.wisc.edu/~sharonli/time-in-the-chaos.html", status: "read",
-      note: "Optimize for your ability to adapt across many possible futures." },
+      note: "“Optimize for your ability to adapt across many possible futures.”" },
     { title: "Bumbition", source: "Noahpinion",
       url: "https://www.noahpinion.blog/p/bumbition", status: "read",
       note: "Resonates with how I've been thinking lately about the need for mental space." },
