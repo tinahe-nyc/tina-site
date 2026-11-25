@@ -49,6 +49,11 @@
       "<h3>" + title(q) + "</h3><p>" + esc(q.d) + "</p>" +
       (q.n ? '<p class="next"><b>Next</b>' + esc(q.n) + "</p>" : "") + links(q.l) + "</div></article>";
   };
+  /* Completed quests on the home page: one line each (date and title).
+     The full quest log keeps their descriptions and links. */
+  var brief = function (q) {
+    return '<article class="entry done brief"><div class="when">' + when(q) + "</div><h3>" + title(q) + "</h3></article>";
+  };
   var qEl = $("quests-list");
   if (qEl) {
     var full = qEl.hasAttribute("data-full");
@@ -57,7 +62,7 @@
     var curShown = full ? cur : cur.slice(0, C.limits.currentOnHome);
     var doneShown = full ? done : done.slice(0, C.limits.completedOnHome);
     qEl.innerHTML = curShown.map(quest).join("") +
-      (doneShown.length ? '<div class="divider mono">Completed</div>' + doneShown.map(quest).join("") : "");
+      (doneShown.length ? '<div class="divider mono">Completed</div>' + doneShown.map(full ? quest : brief).join("") : "");
     if (curShown.length + doneShown.length < C.quests.length)
       qEl.insertAdjacentHTML("afterend", more("quests.html", "Full quest log (" + C.quests.length + ")"));
   }

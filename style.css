@@ -97,8 +97,14 @@ section.part{padding:72px 0 0}
 .divider{padding:46px 0 10px;color:var(--rubric);border-bottom:1px solid var(--rule-strong)}
 .entry.done h3{font-size:clamp(21px,2.3vw,25px)}
 .entry.done .when b{font-size:24px}
+/* one-line completed quests on the home page */
+.entry.brief{padding:14px 0;align-items:baseline}
+.entry.brief .when{padding-top:0}
+.entry.brief .when b{display:inline;font-size:20px;margin-right:8px}
+.entry.brief h3{font-size:clamp(19px,2vw,22px);margin:0}
 @media (max-width:860px){.entry{grid-template-columns:110px minmax(0,1fr)}}
-@media (max-width:560px){.entry{grid-template-columns:1fr;gap:6px}.entry .when{padding-top:0}.entry .when b,.entry.done .when b{display:inline;font-size:20px;margin-right:8px}}
+@media (max-width:560px){.entry{grid-template-columns:1fr;gap:6px}.entry .when{padding-top:0}.entry .when b,.entry.done .when b{display:inline;font-size:20px;margin-right:8px}
+  .entry.brief{grid-template-columns:118px minmax(0,1fr);gap:10px;padding:12px 0}.entry.brief .when b{font-size:17px;margin-right:6px}.entry.brief h3{font-size:18px}}
 
 /* ---------- galleries ---------- */
 figure{margin:0}
