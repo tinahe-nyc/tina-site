@@ -88,6 +88,23 @@ var CONTENT = {
      finished it; "reading" or "next" leave it blank.
      note: your short comment, or "" for none. */
   reading: [
+    { title: "Why Are Conversations Limited to About Four People? A Theoretical Exploration of the Conversation Size Constraint",
+      source: "Krems & Wilkes", url: "https://www.sciencedirect.com/science/article/pii/S1090513818301491",
+      status: "reading", note: "" },
+    { title: "Why You Need Your Whole Body – From Head to Toes – to Think", source: "Anna Ciaunica",
+      url: "https://aeon.co/essays/why-you-need-your-whole-body-from-head-to-toes-to-think", status: "reading", note: "" },
+    { title: "How to Be More Ambitious: A Tutorial for Humans with Models", source: "Felix Rieseberg",
+      url: "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/", status: "reading", note: "" },
+    { title: "You Can't Escape Construct Validity", source: "Sean Trott",
+      url: "https://seantrott.substack.com/p/you-cant-escape-construct-validity", status: "reading", note: "" },
+    { title: "Reality Has a Surprising Amount of Detail", source: "John Salvatier",
+      url: "https://johnsalvatier.org/blog/2017/reality-has-a-surprising-amount-of-detail", status: "reading", note: "" },
+    { title: "Record Low Crime Rates Are Real, Not Just Reporting Bias or Improved Medical Care", source: "Scott Alexander",
+      url: "https://www.astralcodexten.com/p/record-low-crime-rates-are-real-not", status: "reading", note: "" },
+    { title: "Eternal Sunshine of a Slopless Mind", source: "Surya Narreddi",
+      url: "https://surya.website/a-blog/eternal-sunshine-of-a-slopless-mind", status: "reading", note: "" },
+    { title: "Improv Teaches Status and Spontaneity", source: "Life Improvement Schemes",
+      url: "https://lifeimprovementschemes.substack.com/p/improv-teaches-status-and-spontaneity", status: "reading", note: "" },
     { title: "Lowering the Barr: Rethinking Causality in Complex Autoimmunity Through Epstein-Barr Virus in Multiple Sclerosis",
       source: "Neurology: Neuroimmunology & Neuroinflammation", url: "https://www.neurology.org/doi/10.1212/NXI.0000000000200680",
       status: "reading", note: "" },
