@@ -32,10 +32,21 @@
   });
 
   /* ---------- quest log ---------- */
-  var links = function (ls) {
+  /* A YouTube link's video id, or null. */
+  var ytId = function (u) {
+    var m = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{11})/.exec(u || "");
+    return m ? m[1] : null;
+  };
+  /* YouTube links play right here in the viewer (marked ▶), so visitors
+     never land on YouTube's page with its likes and comments.
+     cap: the caption to show under the video. */
+  var links = function (ls, cap) {
     if (!ls || !ls.length) return "";
     return '<div class="lnks">' + ls.map(function (l) {
-      return '<a class="lnk" href="' + esc(l[1]) + '" target="_blank" rel="noopener">' + esc(l[0]) + " ↗</a>";
+      var id = ytId(l[1]);
+      return id
+        ? '<a class="lnk" href="' + esc(l[1]) + '" data-yt="' + id + '" data-cap="' + esc(cap || "") + '">' + esc(l[0]) + " ▶</a>"
+        : '<a class="lnk" href="' + esc(l[1]) + '" target="_blank" rel="noopener">' + esc(l[0]) + " ↗</a>";
     }).join("") + "</div>";
   };
   var when = function (q) { return q.from ? "<b>" + esc(q.from) + "</b>" + esc(q.yr) : "<b>—</b>ongoing"; };
@@ -47,13 +58,13 @@
   var quest = function (q) {
     return '<article class="entry' + (q.cur ? "" : " done") + '"><div class="when">' + when(q) + "</div><div>" +
       "<h3>" + title(q) + "</h3>" + (q.d ? "<p>" + esc(q.d) + "</p>" : "") +
-      (q.n ? '<p class="next"><b>Next</b>' + esc(q.n) + "</p>" : "") + links(q.l) + "</div></article>";
+      (q.n ? '<p class="next"><b>Next</b>' + esc(q.n) + "</p>" : "") + links(q.l, q.t) + "</div></article>";
   };
   /* Completed quests on the home page: date and title, with any links on the
      line below (same as current quests). The full quest log keeps descriptions too. */
   var brief = function (q) {
     return '<article class="entry done brief"><div class="when">' + when(q) + "</div><div><h3>" +
-      title(q) + "</h3>" + links(q.l) + "</div></article>";
+      title(q) + "</h3>" + links(q.l, q.t) + "</div></article>";
   };
   var qEl = $("quests-list");
   if (qEl) {
@@ -135,7 +146,7 @@
       $("qtitle").textContent = q.t;
       $("qwhen").textContent = (q.cur ? "Current" : "Completed") + " · " + (q.from ? q.from + " " + q.yr : "ongoing");
       qh.innerHTML = '<p class="lede">' + esc(q.d) + "</p>" +
-        (q.n ? '<p class="next"><b>Next</b>' + esc(q.n) + "</p>" : "") + links(q.l);
+        (q.n ? '<p class="next"><b>Next</b>' + esc(q.n) + "</p>" : "") + links(q.l, q.t);
     }
   }
 
@@ -157,14 +168,33 @@
   /* ---------- lightbox: any .shot opens big ---------- */
   var lb = $("lb");
   if (lb) {
-    var im = $("lbimg"), vd = $("lbvid"), opener = null;
+    var im = $("lbimg"), vd = $("lbvid"), yt = null, opener = null;
     var close = function () {
       lb.hidden = true; try { vd.pause(); } catch (e) {}
-      vd.removeAttribute("src"); vd.load(); if (opener) opener.focus();
+      vd.removeAttribute("src"); vd.load();
+      if (yt) { yt.removeAttribute("src"); yt.hidden = true; }
+      if (opener) opener.focus();
     };
     document.addEventListener("click", function (e) {
+      /* a YouTube link: play it in the viewer with YouTube's privacy-enhanced player */
+      var y = e.target.closest("[data-yt]");
+      if (y) {
+        e.preventDefault(); opener = y;
+        if (!yt) {
+          yt = document.createElement("iframe");
+          yt.className = "yt"; yt.title = "Video";
+          yt.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; yt.allowFullscreen = true;
+          lb.querySelector("figure").insertBefore(yt, $("lbcap"));
+        }
+        im.hidden = true; vd.hidden = true; yt.hidden = false;
+        yt.src = "https://www.youtube-nocookie.com/embed/" + y.getAttribute("data-yt") + "?autoplay=1&rel=0&playsinline=1";
+        $("lbcap").textContent = y.getAttribute("data-cap") || "";
+        lb.hidden = false; $("lbx").focus();
+        return;
+      }
       var b = e.target.closest(".shot"); if (!b) return;
       opener = b;
+      if (yt) { yt.removeAttribute("src"); yt.hidden = true; }
       var o = b.hasAttribute("data-i") ? shots[+b.getAttribute("data-i")]
         : { img: null, src: b.querySelector("img").getAttribute("src"), capHTML: esc(b.getAttribute("data-cap") || "") };
       if (o.video) { im.hidden = true; vd.hidden = false; vd.poster = asset(o.img); vd.src = asset(o.video); }
