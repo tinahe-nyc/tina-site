@@ -17,7 +17,7 @@ var CONTENT = {
      page: a page on this site for the quest. Its title gets an arrow (→).
      l:    links that leave the site, shown as SMALL CAPS ↗. Any number. */
   quests: [
-    { t: "Artificial Reef Prep", slug: "artificial-reef", cur: 1, from: "Mar", yr: "2026 – present",
+    { t: "Artificial Reef Project", slug: "artificial-reef", cur: 1, from: "Mar", yr: "2026 – present",
       d: "Help sink a decommissioned ship for fish housing.",
       n: "Rig & hoist machinery out of the engine room.",
       page: "quests/artificial-reef.html",
