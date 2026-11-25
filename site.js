@@ -223,4 +223,64 @@
     }, { rootMargin: "-30% 0px -60% 0px" });
     document.querySelectorAll("section.part[id]").forEach(function (s) { io.observe(s); });
   }
+
+  /* ---------- small signs of life ----------
+     Skipped for visitors who ask their device for less motion. Hover effects
+     only run with a mouse or trackpad; on phones a tap still opens the viewer. */
+  var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var mouse = window.matchMedia && matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  /* Specimens: a clip plays in place on hover; stills get a magnifying loupe. */
+  if (mouse) document.querySelectorAll("#scope .shot[data-i], #artgrid .shot[data-i]").forEach(function (b) {
+    var o = shots[+b.getAttribute("data-i")], fr = b.querySelector(".frame"), img = fr.querySelector("img");
+    if (o.video) {
+      var v = null;
+      b.addEventListener("mouseenter", function () {
+        if (calm) return;
+        if (!v) {
+          v = document.createElement("video");
+          v.className = "live"; v.muted = true; v.loop = true; v.playsInline = true; v.preload = "auto";
+          v.setAttribute("aria-hidden", "true"); v.src = asset(o.video);
+          fr.appendChild(v);
+        }
+        v.style.cssText = "left:" + img.offsetLeft + "px;top:" + img.offsetTop + "px;width:" + img.offsetWidth + "px;height:" + img.offsetHeight + "px";
+        v.currentTime = 0;
+        var p = v.play(); if (p && p.then) p.then(function () { v.classList.add("on"); }).catch(function () {});
+      });
+      b.addEventListener("mouseleave", function () { if (v) { v.classList.remove("on"); v.pause(); } });
+    } else {
+      var lens = document.createElement("div"), big = new Image(), Z = 2.6, R = 65;
+      lens.className = "lens"; lens.setAttribute("aria-hidden", "true");
+      big.src = asset(o.full || o.img);
+      lens.style.backgroundImage = 'url("' + big.src + '")';
+      fr.appendChild(lens);
+      b.addEventListener("mousemove", function (e) {
+        var r = img.getBoundingClientRect(), f = fr.getBoundingClientRect();
+        var x = e.clientX - r.left, y = e.clientY - r.top;
+        if (x < 0 || y < 0 || x > r.width || y > r.height || !big.naturalWidth) { lens.classList.remove("on"); return; }
+        /* the thumbnail may be cropped to fit (object-fit: cover), so line the zoom up with what's shown */
+        var k = Math.max(r.width / big.naturalWidth, r.height / big.naturalHeight);
+        var w = big.naturalWidth * k, h = big.naturalHeight * k, ox = (w - r.width) / 2, oy = (h - r.height) / 2;
+        lens.style.left = (e.clientX - f.left) + "px"; lens.style.top = (e.clientY - f.top) + "px";
+        lens.style.backgroundSize = (w * Z) + "px " + (h * Z) + "px";
+        lens.style.backgroundPosition = (R - (x + ox) * Z) + "px " + (R - (y + oy) * Z) + "px";
+        lens.classList.add("on"); b.classList.add("looking");
+      });
+      b.addEventListener("mouseleave", function () { lens.classList.remove("on"); b.classList.remove("looking"); });
+    }
+  });
+
+  /* Sections ease in as they scroll into view, and margin-note arrows draw themselves. */
+  if (!calm && "IntersectionObserver" in window) {
+    var parts = Array.prototype.slice.call(document.querySelectorAll("section.part")).filter(function (s) {
+      return s.getBoundingClientRect().top > window.innerHeight;   /* leave anything already on screen alone */
+    });
+    var rv = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.remove("later"); rv.unobserve(en.target);
+      });
+    }, { rootMargin: "0px 0px -10% 0px" });
+    parts.forEach(function (s) { s.classList.add("later"); rv.observe(s); });
+  }
 })();
