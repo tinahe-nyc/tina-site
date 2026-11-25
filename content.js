@@ -36,7 +36,7 @@ var CONTENT = {
       n: "Use MaxEnt to predict the where part" },
     { t: "First Friendsgiving", cur: 0, from: "Nov", yr: "2026",
       d: "Host my first ever Friendsgiving. On the menu: beef bourguignon (three hours!), mashed potatoes, and French green beans." },
-    { t: "Integration: Inception Parody Video", cur: 0, from: "Oct", yr: "2026",
+    { t: "Integration: An Inception Parody", cur: 0, from: "Oct", yr: "2026",
       d: "Vibe code an Inception parody about integrals within integrals. Best with sound on.",
       l: [["Watch it", "https://youtu.be/T67-AMJug6w"]] },
     { t: "Cemetery Fungi Dig", cur: 0, from: "Jul", yr: "2026",
