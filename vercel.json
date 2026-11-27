@@ -1,6 +1,7 @@
 {
   "redirects": [
     { "source": "/bloom-scroll", "destination": "/personal-web/", "permanent": true },
+    { "source": "/bloom-scroll/", "destination": "/personal-web/", "permanent": true },
     { "source": "/bloom-scroll/:path*", "destination": "/personal-web/:path*", "permanent": true }
   ]
 }
