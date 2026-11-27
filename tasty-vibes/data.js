@@ -1,9 +1,9 @@
 /* Tasty Vibes: one entry per saved thing, newest first. To add one, copy an entry to the top.
    title, kind (one word; it becomes a filter), note (one line), maker ("" if unknown), via (the account I saw it on),
    post (link to it). media: [url, width, height] per picture (two = a side-by-side pair).
-   mp4: a clip that plays on hover. try: the project itself, when there's one to play with.
+   mp4: a clip that plays on hover, saved in clips/ (X blocks its videos on other sites). try: the project itself, when there's one to play with.
    via can be "" for something that isn't from X (then post is just its link). */
-var P = "https://pbs.twimg.com/", GIF = "https://video.twimg.com/tweet_video/";
+var P = "https://pbs.twimg.com/";
 var VIBES = [
   { title: "Word bouquets", kind: ["Type"], clip: true, mp4: "clips/word-bouquets.mp4",
     media: [[P + "amplify_video_thumb/2126131707145555968/img/nuSzqAhs_8vXVKB2?format=jpg&name=small", 543, 680]],
@@ -24,7 +24,7 @@ var VIBES = [
     media: [[P + "media/HX6xKTpX0AEoNMb?format=jpg&name=small", 382, 679], [P + "media/HX6xKTwWoAAv3c6?format=jpg&name=small", 368, 680]],
     note: "Graphic eyeliner lifted from the markings on a gannet's face.",
     maker: "", via: "@prtygal777", post: "https://x.com/prtygal777/status/2125549082596839703" },
-  { title: "CyteSeeing", kind: ["Game"], clip: true, mp4: GIF + "HX5IEq7XwAApO10.mp4",
+  { title: "CyteSeeing", kind: ["Game"], clip: true, mp4: "clips/cyteseeing.mp4",
     media: [[P + "tweet_video_thumb/HX5IEq7XwAApO10?format=jpg&name=small", 679, 436]],
     note: "A retro arcade game that teaches the judgment calls of single-cell analysis.",
     maker: "Parashar Dhapola", via: "@ParasharDhapola", post: "https://x.com/ParasharDhapola/status/2125215330452508716",
@@ -67,7 +67,7 @@ var VIBES = [
     media: [[P + "amplify_video_thumb/2078794153228742656/img/7EZRZq4vJyzwP5Le?format=jpg&name=small", 680, 380]],
     note: "Waves of fluid drawn in ASCII characters that ripple when the cursor passes.",
     maker: "Arpit", via: "@Arpit_2023", post: "https://x.com/arpit_2023/status/2078794913454674093" },
-  { title: "A door in the sky", kind: ["Animation"], clip: true, mp4: GIF + "HNQ2nV7bIAAbM8O.mp4",
+  { title: "A door in the sky", kind: ["Animation"], clip: true, mp4: "clips/door-in-the-sky.mp4",
     media: [[P + "tweet_video_thumb/HNQ2nV7bIAAbM8O?format=jpg&name=small", 680, 493]],
     note: "A girl in a doorway hanging in a dusk sky, with star-tipped ribbons drifting past.",
     maker: "MOMOMO", via: "@momomo_906", post: "https://x.com/momomo_906/status/2078072233134784781" },
