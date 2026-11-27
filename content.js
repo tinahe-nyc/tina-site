@@ -73,13 +73,13 @@ var CONTENT = {
      building: 1 shows an "In progress" tag. Remove it once people can use it,
      and add l: [["Try it", "https://..."]]. */
   tools: [
-    { t: "Colloquial Canto Translator", img: "tools/cantonese.jpg", building: 1,
+    { t: "Kapok Club", img: "tools/cantonese.jpg", building: 1,
       d: "Type or say something in English and get what Cantonese people would actually say, not the formal textbook version. Each word comes with jyutping and audio, plus a note on why it's said that way." },
     { t: "Bite Size", img: "tools/bite-size.jpg",
-      d: "Simplify recipes. Paste a recipe or a link and get back a short kitchen card, with each ingredient sitting next to the step that uses it.",
+      d: "Simplify recipes for when you just want to cook. Paste a recipe or a link and get the steps without a wall of text, each trimmed to a line or so, with its ingredients right next to each step.",
       l: [["Try it", "https://bite-size-recipes.vercel.app/"]] },
     { t: "Emaki", img: "tools/bloom-scroll.jpg",
-      d: "A more intentional way to scroll. Custom feeds curated around my interests and long-term goals rather than algorithmic recommendations. Personal websites, creative projects, and visual inspiration.",
+      d: "A more intentional way to scroll. Custom feeds curated around my interests and long-term goals. Personal websites, creative projects, and visual inspiration. Named after emaki (絵巻), Japanese illustrated handscrolls meant to be experienced gradually. An inspiration for a slower, more deliberate way to scroll.",
       l: [["Personal websites", "bloom-scroll/index.html"], ["Tasty Vibes", "tasty-vibes/index.html"]] }
   ],
 

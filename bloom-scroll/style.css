@@ -89,7 +89,8 @@ body:has(dialog[open]) { overflow: hidden; }
 @media (max-width: 1000px) {
   .feed-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .feed-grid .tile { grid-column: auto; }
-  .feed-grid .tile-visual { height: auto; aspect-ratio: 16 / 10; }
+  /* :nth-child(n) outweighs the taller-card rules above, so every card keeps the same shape here */
+  .feed-grid .tile:nth-child(n) .tile-visual { height: auto; aspect-ratio: 16 / 10; }
 }
 @media (max-width: 650px) {
   html { scroll-padding-top: 7rem; }
