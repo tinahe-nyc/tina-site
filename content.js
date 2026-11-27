@@ -79,8 +79,8 @@ var CONTENT = {
       d: "Simplify recipes. Paste a recipe or a link and get back a short kitchen card, with each ingredient sitting next to the step that uses it.",
       l: [["Try it", "https://bite-size-recipes.vercel.app/"]] },
     { t: "Bloom Scroll", img: "tools/bloom-scroll.jpg",
-      d: "A feed to scroll instead of doomscrolling, filled with things that feed my long-term goals. First scroll: personal websites, for inspiration while I build my own.",
-      l: [["Scroll it", "bloom-scroll/index.html"]] }
+      d: "Feeds to scroll instead of doomscrolling, filled with things that feed my long-term goals. Personal websites, for inspiration while I build my own, and Tasty Vibes, the visual inspo and cool projects I save.",
+      l: [["Personal websites", "bloom-scroll/index.html"], ["Tasty Vibes", "tasty-vibes/index.html"]] }
   ],
 
   /* ---------------- READING ----------------
