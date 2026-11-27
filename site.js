@@ -114,7 +114,7 @@
     .map(function (o) {
       return '<article class="tool">' + (o.img ? shot(o) : "<div></div>") + "<div>" +
         (o.building ? '<p class="wip mono">In progress</p>' : "") +
-        "<h3>" + esc(o.t) + "</h3><p>" + esc(o.d) + "</p>" + links(o.l) + "</div></article>";
+        "<h3>" + esc(o.t) + "</h3>" + o.d.split(/\n\s*\n/).map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") + links(o.l) + "</div></article>";
     }).join("");
 
   /* ---------- reading ---------- */

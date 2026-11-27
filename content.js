@@ -70,6 +70,7 @@ var CONTENT = {
   /* ---------------- TOOLS ----------------
      Little apps I've built. img: a screenshot (the top of it shows on the page;
      click to see the whole thing). l: links, same as the quest log.
+     d: a blank line (\n\n) starts a new paragraph.
      building: 1 shows an "In progress" tag. Remove it once people can use it,
      and add l: [["Try it", "https://..."]]. */
   tools: [
@@ -79,8 +80,8 @@ var CONTENT = {
       d: "Simplify recipes for when you just want to cook. Paste a recipe or a link and get the steps without a wall of text, each trimmed to a line or so, with its ingredients right next to each step.",
       l: [["Try it", "https://bite-size-recipes.vercel.app/"]] },
     { t: "Emaki", img: "tools/bloom-scroll.jpg",
-      d: "A more intentional way to scroll. Custom feeds curated around my interests and long-term goals. Personal websites, creative projects, and visual inspiration. Named after emaki (絵巻), Japanese illustrated handscrolls meant to be experienced gradually. An inspiration for a slower, more deliberate way to scroll.",
-      l: [["Personal websites", "bloom-scroll/index.html"], ["Tasty Vibes", "tasty-vibes/index.html"]] }
+      d: "A more intentional way to scroll. Custom feeds curated around my interests and long-term goals. Personal websites, creative projects, and visual inspiration.\n\nInspired by emaki (絵巻), Japanese illustrated handscrolls that are slowly unrolled by hand. Reimagining digital scrolling as an act of deliberate exploration rather than passive consumption.",
+      l: [["Personal websites", "personal-web/index.html"], ["Tasty Vibes", "tasty-vibes/index.html"]] }
   ],
 
   /* ---------------- READING ----------------
