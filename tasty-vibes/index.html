@@ -232,22 +232,44 @@ body.canvas .board{position:absolute;left:0;top:0;transition:none}
       });
     }
   });
+  var clipFail = function () {};   /* a clip that won't load is skipped from then on */
   function play(v) {
-    if (!v.mp4) return;
+    if (!v.mp4 || v.bad) return;
     if (!v.vid) {
       var vd = document.createElement("video");
+      vd.onerror = function () { v.bad = true; v.el.classList.remove("playing"); clipFail(v); };
       vd.muted = true; vd.loop = true; vd.playsInline = true; vd.preload = "auto"; vd.src = v.mp4; vd.setAttribute("aria-hidden", "true");
       v.card.querySelector(".media").appendChild(vd); v.vid = vd;
     }
     var p = v.vid.play(); if (p) p.then(function () { v.el.classList.add("playing"); }).catch(function () {});
   }
   function stop(v) { if (v.vid) { v.vid.pause(); v.el.classList.remove("playing"); } }
-  /* on phones, clips play while they're in the middle of the screen */
+  /* on phones, one clip plays at a time: the visible one nearest the middle of the screen */
   if (!fine && !calm && "IntersectionObserver" in window) {
+    var seen = [], live = null, tick = 0;
+    function pick() {
+      tick = 0;
+      var mid = innerHeight / 2, best = null, bd = Infinity;
+      seen.forEach(function (v) {
+        if (v.bad || v.el.classList.contains("off")) return;
+        var r = v.el.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - mid);
+        if (d < bd) { bd = d; best = v; }
+      });
+      if (!lb.hidden || (best === live && (!live || (live.vid && !live.vid.paused)))) return;
+      if (live && live !== best) stop(live);
+      live = best; if (live) play(live);
+    }
+    function soon() { if (!tick) tick = requestAnimationFrame(pick); }
+    clipFail = function (v) { if (v === live) { live = null; soon(); } };
     var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { var v = VIBES.filter(function (x) { return x.el === e.target; })[0]; if (e.isIntersecting) play(v); else stop(v); });
-    }, { threshold: 0.6 });
+      es.forEach(function (e) {
+        var v = VIBES.filter(function (x) { return x.el === e.target; })[0], i = seen.indexOf(v);
+        if (e.isIntersecting && i < 0) seen.push(v); else if (!e.isIntersecting && i >= 0) seen.splice(i, 1);
+      });
+      soon();
+    }, { threshold: 0.5 });
     VIBES.forEach(function (v) { if (v.mp4) io.observe(v.el); });
+    addEventListener("scroll", soon, { passive: true });
   }
 
   /* filters */
@@ -407,14 +429,14 @@ body.canvas .board{position:absolute;left:0;top:0;transition:none}
     $("lb-pos").textContent = (i + 1) + " / " + shown.length;
     $("lb-kind").innerHTML = "<i></i>" + esc(v.kind.join(" · "));
     $("lb-title").textContent = v.title;
-    var via = '<a href="https://x.com/' + esc(v.via.slice(1)) + '">' + esc(v.via) + "</a>";
-    $("lb-by").innerHTML = v.maker ? "By " + esc(v.maker) + " · " + via : "Via " + via;
+    var via = v.via ? '<a href="https://x.com/' + esc(v.via.slice(1)) + '">' + esc(v.via) + "</a>" : "";
+    $("lb-by").innerHTML = v.maker ? "By " + esc(v.maker) + (via ? " · " + via : "") : "Via " + via;
     $("lb-note").textContent = v.note || "";
     var q = $("lb-q"); q.hidden = !v.quote; q.open = false;
     if (v.quote) { $("lb-q1").textContent = v.quote.text; $("lb-q1").lang = v.quote.lang; $("lb-q2").textContent = v.quote.en; }
     var links = [];
     if (v.try) links.push(["Try it ↗", v.try]);
-    links.push([v.clip ? "Watch the clip ↗" : "See the post ↗", v.post]);
+    if (v.post !== v.try) links.push([v.clip ? "Watch the clip ↗" : "See the post ↗", v.post]);
     if (v.also) links.push([v.also[0] + " ↗", v.also[1]]);
     $("lb-links").innerHTML = links.map(function (l) { return '<a href="' + esc(l[1]) + '" target="_blank" rel="noopener">' + esc(l[0]) + "</a>"; }).join("");
     if (v.mp4) {
