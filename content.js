@@ -75,7 +75,7 @@ var CONTENT = {
      and add l: [["Try it", "https://..."]]. */
   tools: [
     { t: "Kapok Club", img: "tools/cantonese.jpg", building: 1,
-      d: "Type or say something in English and get what Cantonese people would actually say, not the formal textbook version. Each word comes with jyutping and audio, plus a note on why it's said that way." },
+      d: "Type or say something in English and get what Cantonese people would actually say, not the formal textbook version. Each word comes with jyutping and audio, plus a note on why it's said that way.\n\nNamed after the kapok (木棉), the red-flowering tree that is the city flower of Guangzhou." },
     { t: "Bite Size", img: "tools/bite-size.jpg",
       d: "Simplify recipes for when you just want to cook. Paste a recipe or a link and get the steps without a wall of text, each trimmed to a line or so, with its ingredients right next to each step.",
       l: [["Try it", "https://bite-size-recipes.vercel.app/"]] },
