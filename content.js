@@ -79,8 +79,8 @@ var CONTENT = {
     { t: "Bite Size", img: "tools/bite-size.jpg",
       d: "Simplify recipes for when you just want to cook. Paste a recipe or a link and get the steps without a wall of text, each trimmed to a line or so, with its ingredients right next to each step.",
       l: [["Try it", "https://bite-size-recipes.vercel.app/"]] },
-    { t: "Emaki", img: "tools/bloom-scroll.jpg",
-      d: "A more intentional way to scroll. Custom feeds curated around my interests and long-term goals. Personal websites, creative projects, and visual inspiration.\n\nInspired by emaki (絵巻), Japanese illustrated handscrolls that are slowly unrolled by hand. Reimagining digital scrolling as an act of deliberate exploration rather than passive consumption.",
+    { t: "Custom Feeds", img: "tools/bloom-scroll.jpg",
+      d: "A more intentional way to scroll. Custom feeds curated around my interests and long-term goals. Personal websites, creative projects, and visual inspiration.",
       l: [["Personal websites", "personal-web/index.html"], ["Tasty Vibes", "tasty-vibes/index.html"]] }
   ],
 
